@@ -1,39 +1,27 @@
-# Sumár vykonaných zmien – IAM Petržalka (6. 7. 2026)
+# Súhrn zmien zo dňa 21. 07. 2026
 
-Tento dokument sumarizuje všetky vylepšenia, opravy chýb a zmeny dizajnu, ktoré sme dnes spoločne zapracovali do systému správy identít a prístupov (IAM).
+## 1. Modálne okná pre formuláre užívateľov
+- **Úprava & Pridávanie užívateľov:** Inline formuláre na vrchu stránky v `UsersTab.jsx` a `AuthorizedUsersTab.jsx` boli prerobené na stredové modálne okná s rozostreným pozadím (`modal-overlay` a `modal-content card`).
+- **Tlačidlo zavretia:** Do hlavičiek modálnych okien bolo pridané tlačidlo `✕` (`btn-close`).
 
----
+## 2. Odstránenie posúvania kariet pri prejdení myšou
+- Zo štýlu `.card:hover` v `src/index.css` sa odstránilo `transform: translateY(-2px);`, čím sa zamedzilo skákaniu a posúvaniu tabuliek a kariet pri hoveri.
 
-## 1. Upresnenie a premenovanie rolí v IAM
-- **Zmena:** Upravili sme označenie rolí v celom systéme (frontend aj backend), aby bolo jednoznačné, že sa vzťahujú výhradne na správu IAM:
-  - Pôvodná rola `Admin` -> **Administrátor IAM**
-  - Pôvodná rola `User` -> **Oprávnený užívateľ**
-- **Súbory:** `server.js`, `UsersTab.jsx`, `AuthorizedUsersTab.jsx`, `Sidebar.jsx`, `App.jsx`
+## 3. Pridávanie a mazanie rolí v IAM
+- **Backend Endpoints:** Implementované `POST /api/roles` a `DELETE /api/roles/:id` s bezpečnostnou kontrolou oprávnenia `role_management === 'Zápis'` a auditným logovaním.
+- **Systémové vs. Vlastné roly:** Systémové roly (*Administrátor IAM* a *Oprávnený užívateľ*) sú chránené proti vymazaniu a roly priradené užívateľom nemožno zmazať bez predchádzajúceho prenastavenia užívateľov.
+- **UI Vylepšenia:** V `IamRolesTab.jsx` pridané tlačidlá **➕ Pridať rolu** a **🗑️ Vymazať rolu**, potvrdzovacie modálne okná a **vizuálna mriežka tlačidiel pre výber ikonky**.
 
-## 2. Vymazanie bežných užívateľov administrátorom
-- **Zmena:** Do zoznamu užívateľov v sekcii **Užívatelia** sme pridali funkciu na vymazanie bežných používateľov.
-- **Súbory:** `UsersTab.jsx` (pridané tlačidlo pre vymazanie a príslušná logika), `server.js` (nový endpoint `DELETE /api/users/:id`).
+## 4. Záložka "Prehľad oprávnení" (Permissions Overview)
+- **Nový komponent:** Vytvorený `PermissionsOverviewTab.jsx` umožňujúci prepínanie medzi dvoma pohľadmi:
+  - **👤 Užívateľ:** Zobrazuje zoznam prístupov vybraného užívateľa s ich prístupovou úrovňou a zdrojom.
+  - **🔑 Prístupy:** Zobrazuje zoznam všetkých užívateľov, ktorí majú prístup k vybranému systému.
+- **Stabilita výšky:** Master panel s vyhľadávaním a výberom bol zafixovaný tak, aby sa pri filtrovaní nepotápala ani neskákala jeho výška.
+- **Navigácia:** Záložka pridaná na hlavnú úroveň v `Sidebar.jsx` pod Užívateľmi.
+- **Pomenovanie:** Záložka *Oprávnenia* v ľavom paneli bola premenovaná na **Správa prístupov**.
 
-## 3. Separácia prihlasovania do IAM a zjednodušenie evidencie
-- **Zmena:** Nastavili sme pravidlo, že bežní užívatelia sa do systému IAM neprihlasujú (prihlasovanie je vyhradené len pre účty s rolou *Administrátor IAM* a *Oprávnený užívateľ* – t.j. `admin` a `uzivatel`).
-- **Zjednodušenie detailov:** Bežným užívateľom sme zrušili prihlasovacie meno, heslo a rolu. Ponechali sme im iba **Meno**, **Stav** a **Zoznam prístupov a oprávnení**.
-- **Súbory:** `server.js` (odfiltrovanie prihlasovacích kont zo zoznamu bežných užívateľov, automatické generovanie systémových hodnôt pri ukladaní), `UsersTab.jsx` (úprava formulárov a tabuľky).
-
-## 4. Moderné grafické modálne okná namiesto natívnych dialógov
-- **Zmena:** Všetky predchádzajúce prehliadačové vyskakovacie okná (`window.confirm`) a chybové inline hlásenia boli nahradené **vlastnými dizajnovými oknami (popups)**.
-- **Dizajn:** Okná sa otvárajú v strede monitora, obsahujú moderné animácie, rozostrené pozadie (backdrop blur) a farby plne integrované do tmavého dizajnu aplikácie (zelená pre úspech, červená s jemnou žiarou pre chyby, oranžová/červená pre varovania pred mazaním).
-- **Súbory:** `UsersTab.jsx`, `PermissionsTab.jsx`
-
-## 5. Zabezpečenie a oprava chýb v skupinách prístupov
-- **Zmena:** Opravili sme kritickú chybu backendu, ktorá spôsobovala pád servera a chybovú hlášku `Unexpected end of JSON input` pri pridávaní prístupov do prístupových skupín.
-- **Detaily:** Prerobili sme metódu `getSysName` a zabezpečili endpointy `POST /api/groups` a `PUT /api/groups/:id` tak, aby bezpečne zvládali prázdne polia, reťazce aj objekty. Taktiež sa v audit logoch už nezobrazujú chybné `[object Object]` záznamy, ale reálne názvy pridaných/odobratých systémov.
-- **Súbory:** `server.js`
-
-## 6. Pridanie úrovne prístupu „Nemá“
-- **Zmena:** Do tabuľky prístupov na karte **Oprávnenia** sme pridali nový stĺpec **"Nemá"** umiestnený hneď za stĺpcom "Admin".
-- **Styling:** Pre úroveň "Nemá" sme vytvorili dizajnový sivý odznak s tlmeným písmom a jemným ohraničením, aby bol jasne vizuálne odlíšený od aktívnych prístupov. Podpora pre tento odznak bola pridaná do všetkých príslušných záložiek.
-- **Súbory:** `PermissionsTab.jsx`, `UsersTab.jsx`, `AuthorizedUsersTab.jsx`
+## 5. Inicializácia a záloha na Git / GitHub
+- Projekt bol inicializovaný v Gite (`main` vetva), prepojený s GitHub repozitárom [`martincibulka/iam-petrzalka`](https://github.com/martincibulka/iam-petrzalka.git) a všetky dnešné zmeny boli priebežne zálohované (pushed).
 
 ---
-
-*Všetky zmeny boli úspešne skontrolované linterom, skompilované do produkčnej verzie a sú plne funkčné.*
+**Aktuálna verzia projektu:** `21.07.2026.13.48`
