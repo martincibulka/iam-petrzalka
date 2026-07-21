@@ -1,7 +1,7 @@
 {
   "name": "iam-petrzalka",
   "private": true,
-  "version": "21.07.2026.10.02",
+  "version": "21.07.2026.10.04",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
