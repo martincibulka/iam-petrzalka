@@ -24,7 +24,7 @@ export default function Sidebar({ activeTab, setActiveTab, user }) {
             onClick={() => setActiveTab('permissions')}
           >
             <span className="sidebar-icon">🔑</span>
-            <span className="sidebar-label">Oprávnenia</span>
+            <span className="sidebar-label">Správa prístupov</span>
           </button>
         </div>
 
