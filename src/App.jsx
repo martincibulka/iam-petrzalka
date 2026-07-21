@@ -7,6 +7,7 @@ import PermissionsTab from './components/PermissionsTab';
 import SettingsTab from './components/SettingsTab';
 import AuthorizedUsersTab from './components/AuthorizedUsersTab';
 import IamRolesTab from './components/IamRolesTab';
+import PermissionsOverviewTab from './components/PermissionsOverviewTab';
 import LogsTab from './components/LogsTab';
 import './App.css';
 
@@ -165,6 +166,7 @@ function App() {
         
         <main>
           {activeTab === 'users' && <UsersTab currentUser={currentUser} />}
+          {activeTab === 'permissions-overview' && <PermissionsOverviewTab currentUser={currentUser} />}
           {activeTab === 'permissions' && <PermissionsTab currentUser={currentUser} />}
           {activeTab === 'settings' && <SettingsTab currentUser={currentUser} />}
           {activeTab === 'authorized-users' && <AuthorizedUsersTab currentUser={currentUser} />}

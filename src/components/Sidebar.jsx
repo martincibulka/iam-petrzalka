@@ -5,13 +5,24 @@ export default function Sidebar({ activeTab, setActiveTab, user }) {
     <aside className="app-sidebar">
       <nav className="sidebar-nav">
         <div className="sidebar-menu-top">
-          <button
-            className={`sidebar-link ${activeTab === 'users' ? 'active' : ''}`}
-            onClick={() => setActiveTab('users')}
-          >
-            <span className="sidebar-icon">👥</span>
-            <span className="sidebar-label">Užívatelia</span>
-          </button>
+          <div className="sidebar-settings-group">
+            <button
+              className={`sidebar-link ${activeTab === 'users' ? 'active' : ''}`}
+              onClick={() => setActiveTab('users')}
+            >
+              <span className="sidebar-icon">👥</span>
+              <span className="sidebar-label">Užívatelia</span>
+            </button>
+            <div className="sidebar-submenu">
+              <button
+                className={`sidebar-sublink ${activeTab === 'permissions-overview' ? 'active' : ''}`}
+                onClick={() => setActiveTab('permissions-overview')}
+              >
+                <span className="sidebar-icon">📊</span>
+                <span className="sidebar-label">Prehľad oprávnení</span>
+              </button>
+            </div>
+          </div>
           <button
             className={`sidebar-link ${activeTab === 'permissions' ? 'active' : ''}`}
             onClick={() => setActiveTab('permissions')}
