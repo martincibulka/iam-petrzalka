@@ -165,7 +165,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '2rem', alignItems: 'start' }}>
         {/* Left Master Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div className="card" style={{ padding: '1.25rem' }}>
+          <div className="card" style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
             <div className="form-group" style={{ marginBottom: '1rem' }}>
               <label className="form-label" style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Zobraziť podľa
@@ -184,7 +184,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
               </select>
             </div>
 
-            <div className="form-group" style={{ marginBottom: 0 }}>
+            <div className="form-group" style={{ marginBottom: '1.25rem' }}>
               <input 
                 type="text" 
                 className="form-input" 
@@ -194,99 +194,97 @@ export default function PermissionsOverviewTab({ currentUser }) {
                 style={{ fontSize: '0.85rem', padding: '0.65rem 0.85rem' }}
               />
             </div>
-          </div>
 
-          {/* Master Items List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', maxHeight: '600px', overflowY: 'auto', paddingRight: '0.2rem' }}>
-            {loading ? (
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textAlign: 'center', padding: '1rem' }}>Načítavam...</div>
-            ) : mode === 'users' ? (
-              filteredUsers.length === 0 ? (
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', padding: '1rem' }}>Žiadni užívatelia.</div>
-              ) : (
-                filteredUsers.map(user => {
-                  const isSelected = selectedUser && selectedUser.id === user.id;
-                  const effectiveCount = getEffectiveAccessesForUser(user).length;
-                  return (
-                    <div 
-                      key={user.id}
-                      onClick={() => setSelectedUserId(user.id)}
-                      className="card"
-                      style={{ 
-                        padding: '0.9rem 1.1rem', 
-                        cursor: 'pointer', 
-                        borderColor: isSelected ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)',
-                        background: isSelected ? 'rgba(139, 92, 246, 0.08)' : 'rgba(255,255,255,0.01)',
-                        transition: 'all 0.15s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        borderRadius: 'var(--border-radius-sm)'
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', overflow: 'hidden' }}>
-                        <div className="user-avatar" style={{ width: '32px', height: '32px', fontSize: '0.9rem', flexShrink: 0 }}>
-                          {user.name.charAt(0)}
-                        </div>
-                        <div style={{ overflow: 'hidden' }}>
-                          <div style={{ fontWeight: '600', color: 'white', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {user.name}
+            {/* Master Items List */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', height: '520px', overflowY: 'auto', paddingRight: '0.2rem' }}>
+              {loading ? (
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textAlign: 'center', padding: '1rem' }}>Načítavam...</div>
+              ) : mode === 'users' ? (
+                filteredUsers.length === 0 ? (
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', padding: '1rem' }}>Žiadni užívatelia.</div>
+                ) : (
+                  filteredUsers.map(user => {
+                    const isSelected = selectedUser && selectedUser.id === user.id;
+                    const effectiveCount = getEffectiveAccessesForUser(user).length;
+                    return (
+                      <div 
+                        key={user.id}
+                        onClick={() => setSelectedUserId(user.id)}
+                        style={{ 
+                          padding: '0.75rem 0.9rem', 
+                          cursor: 'pointer', 
+                          border: isSelected ? '1px solid var(--accent-primary)' : '1px solid rgba(255,255,255,0.05)',
+                          background: isSelected ? 'rgba(139, 92, 246, 0.12)' : 'rgba(255,255,255,0.02)',
+                          transition: 'all 0.15s ease',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          borderRadius: 'var(--border-radius-sm)'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', overflow: 'hidden' }}>
+                          <div className="user-avatar" style={{ width: '32px', height: '32px', fontSize: '0.9rem', flexShrink: 0 }}>
+                            {user.name.charAt(0)}
                           </div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {user.department || 'Bez oddelenia'}
+                          <div style={{ overflow: 'hidden' }}>
+                            <div style={{ fontWeight: '600', color: 'white', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {user.name}
+                            </div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {user.department || 'Bez oddelenia'}
+                            </div>
                           </div>
                         </div>
+                        <span className="badge badge-user" style={{ fontSize: '0.7rem', padding: '0.15rem 0.45rem', flexShrink: 0 }}>
+                          {effectiveCount}
+                        </span>
                       </div>
-                      <span className="badge badge-user" style={{ fontSize: '0.7rem', padding: '0.15rem 0.45rem', flexShrink: 0 }}>
-                        {effectiveCount}
-                      </span>
-                    </div>
-                  );
-                })
-              )
-            ) : (
-              filteredAccesses.length === 0 ? (
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', padding: '1rem' }}>Žiadne prístupy.</div>
+                    );
+                  })
+                )
               ) : (
-                filteredAccesses.map(access => {
-                  const isSelected = selectedAccess && selectedAccess.id === access.id;
-                  const userCount = getUsersForAccess(access).length;
-                  return (
-                    <div 
-                      key={access.id}
-                      onClick={() => setSelectedAccessId(access.id)}
-                      className="card"
-                      style={{ 
-                        padding: '0.9rem 1.1rem', 
-                        cursor: 'pointer', 
-                        borderColor: isSelected ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)',
-                        background: isSelected ? 'rgba(139, 92, 246, 0.08)' : 'rgba(255,255,255,0.01)',
-                        transition: 'all 0.15s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        borderRadius: 'var(--border-radius-sm)'
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', overflow: 'hidden' }}>
-                        <span style={{ fontSize: '1.2rem', flexShrink: 0 }}>🔑</span>
-                        <div style={{ overflow: 'hidden' }}>
-                          <div style={{ fontWeight: '600', color: 'white', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {access.name}
-                          </div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                            {access.levels ? access.levels.join(', ') : 'Read/Write'}
+                filteredAccesses.length === 0 ? (
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', padding: '1rem' }}>Žiadne prístupy.</div>
+                ) : (
+                  filteredAccesses.map(access => {
+                    const isSelected = selectedAccess && selectedAccess.id === access.id;
+                    const userCount = getUsersForAccess(access).length;
+                    return (
+                      <div 
+                        key={access.id}
+                        onClick={() => setSelectedAccessId(access.id)}
+                        style={{ 
+                          padding: '0.75rem 0.9rem', 
+                          cursor: 'pointer', 
+                          border: isSelected ? '1px solid var(--accent-primary)' : '1px solid rgba(255,255,255,0.05)',
+                          background: isSelected ? 'rgba(139, 92, 246, 0.12)' : 'rgba(255,255,255,0.02)',
+                          transition: 'all 0.15s ease',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          borderRadius: 'var(--border-radius-sm)'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', overflow: 'hidden' }}>
+                          <span style={{ fontSize: '1.2rem', flexShrink: 0 }}>🔑</span>
+                          <div style={{ overflow: 'hidden' }}>
+                            <div style={{ fontWeight: '600', color: 'white', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {access.name}
+                            </div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                              {access.levels ? access.levels.join(', ') : 'Read/Write'}
+                            </div>
                           </div>
                         </div>
+                        <span className="badge badge-admin" style={{ fontSize: '0.7rem', padding: '0.15rem 0.45rem', flexShrink: 0 }}>
+                          👥 {userCount}
+                        </span>
                       </div>
-                      <span className="badge badge-admin" style={{ fontSize: '0.7rem', padding: '0.15rem 0.45rem', flexShrink: 0 }}>
-                        👥 {userCount}
-                      </span>
-                    </div>
-                  );
-                })
-              )
-            )}
+                    );
+                  })
+                )
+              )}
+            </div>
           </div>
         </div>
 
