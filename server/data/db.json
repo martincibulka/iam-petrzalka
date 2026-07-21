@@ -1,0 +1,1914 @@
+{
+  "users": [
+    {
+      "id": "admin-id",
+      "username": "admin",
+      "password": "admin12",
+      "name": "Administrátor",
+      "role": "admin",
+      "status": "Aktivovaný",
+      "is_iam_user": true,
+      "created_at": "2026-07-03T09:31:41.132Z"
+    },
+    {
+      "id": "user-id",
+      "username": "uzivatel",
+      "password": "uzivatel12",
+      "name": "Užívateľ",
+      "role": "user",
+      "status": "Aktivovaný",
+      "is_iam_user": true,
+      "created_at": "2026-07-03T09:31:41.132Z"
+    },
+    {
+      "id": "user-1783169848301-c2ohov2",
+      "username": "martin.cibulka",
+      "password": "Kookaboora654tri+",
+      "name": "Martin Cibulka",
+      "role": "user",
+      "status": "Aktivovaný",
+      "created_at": "2026-07-04T12:57:28.301Z",
+      "systems": [
+        {
+          "name": "Trimel - Fakturácia",
+          "level": "Read only"
+        },
+        {
+          "name": "Trimel - Obeh dokladov",
+          "level": "Admin"
+        },
+        {
+          "name": "Trimel - Objednávky",
+          "level": "Nemá"
+        },
+        {
+          "name": "Trimel - Pošta",
+          "level": "Read/Write"
+        },
+        {
+          "name": "VPN - Domus",
+          "level": "Nemá"
+        },
+        {
+          "name": "VPN - FortiClient",
+          "level": "Nemá"
+        },
+        {
+          "name": "VPN - GlobalProtect",
+          "level": "Admin"
+        },
+        {
+          "name": "Active Directory",
+          "level": "USER"
+        }
+      ],
+      "email": "martin.cibulka@petrzalka.sk",
+      "department": "Referát IT",
+      "entry_date": "2024-07-01"
+    },
+    {
+      "id": "user-1783348456947-fg3mc57",
+      "username": "user_1783348456947",
+      "password": "",
+      "name": "Igor Jedinák",
+      "role": "user",
+      "status": "Aktivovaný",
+      "systems": [
+        {
+          "name": "Trimel - Pošta",
+          "level": "Read/Write"
+        },
+        {
+          "name": "Trimel - Fakturácia",
+          "level": "Read only"
+        },
+        {
+          "name": "Trimel - Obeh dokladov",
+          "level": "Admin"
+        },
+        {
+          "name": "Trimel - Objednávky",
+          "level": "Nemá"
+        }
+      ],
+      "created_at": "2026-07-06T14:34:16.947Z",
+      "email": "igor.jedinak@petrzalka.sk",
+      "department": "Referát IT",
+      "entry_date": "2023-10-01"
+    },
+    {
+      "id": "user-1783349541848-unihmw8",
+      "username": "user_1783349541848",
+      "password": "",
+      "name": "Richard Makovica",
+      "role": "user",
+      "status": "Aktivovaný",
+      "systems": [
+        {
+          "name": "VPN - Domus",
+          "level": "USER"
+        },
+        {
+          "name": "VPN - GlobalProtect",
+          "level": "Admin"
+        }
+      ],
+      "created_at": "2026-07-06T14:52:21.848Z",
+      "email": "richard.makovica@petrzalka.sk",
+      "department": "Referát IT",
+      "entry_date": "2023-12-01"
+    },
+    {
+      "id": "iam-1783423770884-qur4um7",
+      "username": "spravca.registratury",
+      "password": "spravca.registratury12",
+      "name": "Viktor Wiedermann",
+      "role": "user",
+      "status": "Aktivovaný",
+      "is_iam_user": true,
+      "created_at": "2026-07-07T11:29:30.884Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-1784619594565-7r2swalzk",
+      "timestamp": "2026-07-21T07:39:54.565Z",
+      "username": "admin",
+      "action": "Vymazanie roly",
+      "details": "Vymazaná rola z IAM \"Testovacia rola\"."
+    },
+    {
+      "id": "log-1784619545568-ljl7pf4ic",
+      "timestamp": "2026-07-21T07:39:05.568Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Testovacia rola\"."
+    },
+    {
+      "id": "log-1784619532975-csy9hzp24",
+      "timestamp": "2026-07-21T07:38:52.975Z",
+      "username": "admin",
+      "action": "Vytvorenie roly",
+      "details": "Vytvorená nová rola v IAM \"Testovacia rola\"."
+    },
+    {
+      "id": "log-1784618784936-qhbjldwpf",
+      "timestamp": "2026-07-21T07:26:24.936Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Oprávnený užívateľ\"."
+    },
+    {
+      "id": "log-1784618762967-2twc398sy",
+      "timestamp": "2026-07-21T07:26:02.967Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Oprávnený užívateľ\"."
+    },
+    {
+      "id": "log-1784616725441-1xjiwomjv",
+      "timestamp": "2026-07-21T06:52:05.441Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena oddelenia: \"IT podpora\" -> \"Referát IT\""
+    },
+    {
+      "id": "log-1784616721861-36wua5k71",
+      "timestamp": "2026-07-21T06:52:01.861Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Igor Jedinák (user_1783348456947). Detaily: Zmena oddelenia: \"IT podpora\" -> \"Referát IT\""
+    },
+    {
+      "id": "log-1784616523853-vxo5ix3av",
+      "timestamp": "2026-07-21T06:48:43.853Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena mena: \"Martin Cibulka teest\" -> \"Martin Cibulka\""
+    },
+    {
+      "id": "log-1784616506794-m4sk0e2rg",
+      "timestamp": "2026-07-21T06:48:26.794Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka teest (martin.cibulka). Detaily: Zmena mena: \"Martin Cibulka\" -> \"Martin Cibulka teest\""
+    },
+    {
+      "id": "log-1784615982145-eg3l359lt",
+      "timestamp": "2026-07-21T06:39:42.145Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1784615982059-6c66sra33",
+      "timestamp": "2026-07-21T06:39:42.059Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1784615914535-x4n165lcd",
+      "timestamp": "2026-07-21T06:38:34.535Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783520702372-jokv675e1",
+      "timestamp": "2026-07-08T14:25:02.372Z",
+      "username": "uzivatel",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Užívateľ sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783520687562-49brnz6dm",
+      "timestamp": "2026-07-08T14:24:47.562Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783518954581-ve5xusuvv",
+      "timestamp": "2026-07-08T13:55:54.581Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783518414659-fw2s2aqrr",
+      "timestamp": "2026-07-08T13:46:54.659Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Administrátor IAM\"."
+    },
+    {
+      "id": "log-1783518164960-w3olqgqz1",
+      "timestamp": "2026-07-08T13:42:44.960Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783518148441-7mdxnss1q",
+      "timestamp": "2026-07-08T13:42:28.441Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783518115718-ob2zfz2uz",
+      "timestamp": "2026-07-08T13:41:55.718Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - GlobalProtect\". Zmena úrovní: [USER, Admin, Nemá]."
+    },
+    {
+      "id": "log-1783518101682-lv9sn9xf6",
+      "timestamp": "2026-07-08T13:41:41.682Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - GlobalProtect\". Zmena úrovní: [USER, Admin, Nemá, Read only]."
+    },
+    {
+      "id": "log-1783518090175-0ofzzacpt",
+      "timestamp": "2026-07-08T13:41:30.175Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Richard Makovica (user_1783349541848). Detaily: Zmena stavu: \"Zablokovaný\" -> \"Aktivovaný\""
+    },
+    {
+      "id": "log-1783517708303-5grs4hjml",
+      "timestamp": "2026-07-08T13:35:08.303Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Richard Makovica (user_1783349541848). Detaily: Zmena stavu: \"Aktivovaný\" -> \"Zablokovaný\""
+    },
+    {
+      "id": "log-1783515123932-fl2i8g9t1",
+      "timestamp": "2026-07-08T12:52:03.932Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Richard Makovica (user_1783349541848). Detaily: Zmena stavu: \"Zablokovaný\" -> \"Aktivovaný\", Zmena emailu: \"\" -> \"richard.makovica@petrzalka.sk\", Zmena oddelenia: \"\" -> \"Referát IT\", Zmena dátumu nástupu: \"\" -> \"2023-12-01\""
+    },
+    {
+      "id": "log-1783514949298-5heu1w1vc",
+      "timestamp": "2026-07-08T12:49:09.298Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783514941960-i2gyt8dck",
+      "timestamp": "2026-07-08T12:49:01.960Z",
+      "username": "uzivatel",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Užívateľ sa odhlásil."
+    },
+    {
+      "id": "log-1783514920061-3yghcxhbt",
+      "timestamp": "2026-07-08T12:48:40.061Z",
+      "username": "uzivatel",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Užívateľ sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783514911561-uci50d3xt",
+      "timestamp": "2026-07-08T12:48:31.561Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783511676674-p0rlhser0",
+      "timestamp": "2026-07-08T11:54:36.674Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783511670168-p3zwjpeoq",
+      "timestamp": "2026-07-08T11:54:30.168Z",
+      "username": "uzivatel",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Užívateľ sa odhlásil."
+    },
+    {
+      "id": "log-1783511502444-jjpb42hzg",
+      "timestamp": "2026-07-08T11:51:42.444Z",
+      "username": "uzivatel",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Užívateľ sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783511492523-2qs8g481a",
+      "timestamp": "2026-07-08T11:51:32.523Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783511481556-rb5hbh74e",
+      "timestamp": "2026-07-08T11:51:21.556Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Oprávnený užívateľ\"."
+    },
+    {
+      "id": "log-1783511459797-gzjfkp2wl",
+      "timestamp": "2026-07-08T11:50:59.797Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Oprávnený užívateľ\"."
+    },
+    {
+      "id": "log-1783511454593-9cdkidqgl",
+      "timestamp": "2026-07-08T11:50:54.593Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Administrátor IAM\"."
+    },
+    {
+      "id": "log-1783511453247-tup7sm2qs",
+      "timestamp": "2026-07-08T11:50:53.247Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Administrátor IAM\"."
+    },
+    {
+      "id": "log-1783511451720-4x13dkqz1",
+      "timestamp": "2026-07-08T11:50:51.720Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Administrátor IAM\"."
+    },
+    {
+      "id": "log-1783511450550-qvzti6yu3",
+      "timestamp": "2026-07-08T11:50:50.550Z",
+      "username": "admin",
+      "action": "Úprava oprávnení roly",
+      "details": "Upravené oprávnenia pre rolu \"Administrátor IAM\"."
+    },
+    {
+      "id": "log-1783511207009-uzf2ycq86",
+      "timestamp": "2026-07-08T11:46:47.009Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783511199612-0rbnwl143",
+      "timestamp": "2026-07-08T11:46:39.612Z",
+      "username": "uzivatel",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Užívateľ sa odhlásil."
+    },
+    {
+      "id": "log-1783511135013-lzd6f7ita",
+      "timestamp": "2026-07-08T11:45:35.013Z",
+      "username": "uzivatel",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Užívateľ sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783511124249-zok102nd4",
+      "timestamp": "2026-07-08T11:45:24.249Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783425055314-q5tlaf5zd",
+      "timestamp": "2026-07-07T11:50:55.314Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783425050319-88bzcjesz",
+      "timestamp": "2026-07-07T11:50:50.319Z",
+      "username": "uzivatel",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Užívateľ sa odhlásil."
+    },
+    {
+      "id": "log-1783425033403-uyq3rqak1",
+      "timestamp": "2026-07-07T11:50:33.403Z",
+      "username": "uzivatel",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Užívateľ sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783425024294-79c8mc3ic",
+      "timestamp": "2026-07-07T11:50:24.294Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783425013782-1fh50wye8",
+      "timestamp": "2026-07-07T11:50:13.782Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783425006341-x4g38hx7p",
+      "timestamp": "2026-07-07T11:50:06.341Z",
+      "username": "spravca.registratury",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Viktor Wiedermann sa odhlásil."
+    },
+    {
+      "id": "log-1783424934379-pnhuezf9t",
+      "timestamp": "2026-07-07T11:48:54.379Z",
+      "username": "spravca.registratury",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Viktor Wiedermann sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783424911336-wemggfqz8",
+      "timestamp": "2026-07-07T11:48:31.336Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783423770891-bagppkxl1",
+      "timestamp": "2026-07-07T11:29:30.891Z",
+      "username": "admin",
+      "action": "Vytvorenie oprávneného užívateľa",
+      "details": "Vytvorený oprávnený užívateľ Viktor Wiedermann (spravca.registratury) s rolou user."
+    },
+    {
+      "id": "log-1783421537469-ww779oja6",
+      "timestamp": "2026-07-07T10:52:17.469Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"Trimel\"."
+    },
+    {
+      "id": "log-1783421157121-2q1t0ysba",
+      "timestamp": "2026-07-07T10:45:57.121Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"AD\"."
+    },
+    {
+      "id": "log-1783420766883-v5m792jb1",
+      "timestamp": "2026-07-07T10:39:26.883Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Richard Makovica (user_1783349541848). Detaily: Zmena stavu: \"Aktivovaný\" -> \"Zablokovaný\""
+    },
+    {
+      "id": "log-1783420545715-n94e0a0ii",
+      "timestamp": "2026-07-07T10:35:45.715Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Igor Jedinák (user_1783348456947). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783420545645-m17d01nin",
+      "timestamp": "2026-07-07T10:35:45.645Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Igor Jedinák (user_1783348456947). Žiadna zmena."
+    },
+    {
+      "id": "log-1783420107065-gc5t2pdzt",
+      "timestamp": "2026-07-07T10:28:27.066Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783420107004-at67xjgol",
+      "timestamp": "2026-07-07T10:28:27.004Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783419446162-t4ljpj99p",
+      "timestamp": "2026-07-07T10:17:26.162Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783419446114-o9wxan7ne",
+      "timestamp": "2026-07-07T10:17:26.114Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783419399283-ynkatt1vq",
+      "timestamp": "2026-07-07T10:16:39.283Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783419399221-yrd88uu4r",
+      "timestamp": "2026-07-07T10:16:39.221Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Pridané do skupín: [Trimel, VPN, AD]."
+    },
+    {
+      "id": "log-1783413894543-en04h2f76",
+      "timestamp": "2026-07-07T08:44:54.543Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Igor Jedinák (user_1783348456947). Detaily: Zmena emailu: \"\" -> \"igor.jedinak@petrzalka.sk\", Zmena oddelenia: \"\" -> \"IT podpora\", Zmena dátumu nástupu: \"\" -> \"2023-10-01\""
+    },
+    {
+      "id": "log-1783413829976-i9itav48h",
+      "timestamp": "2026-07-07T08:43:49.976Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Igor Jedinák (user_1783348456947). Detaily: Zmena stavu: \"Zablokovaný\" -> \"Aktivovaný\""
+    },
+    {
+      "id": "log-1783413825930-4xk53shi3",
+      "timestamp": "2026-07-07T08:43:45.930Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Igor Jedinák (user_1783348456947). Detaily: Zmena stavu: \"Aktivovaný\" -> \"Zablokovaný\""
+    },
+    {
+      "id": "log-1783413560621-i2nkntju4",
+      "timestamp": "2026-07-07T08:39:20.621Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena emailu: \"\" -> \"martin.cibulka@petrzalka.sk\", Zmena oddelenia: \"\" -> \"IT podpora\", Zmena dátumu nástupu: \"\" -> \"2024-07-01\""
+    },
+    {
+      "id": "log-1783350241441-9k50u4d0w",
+      "timestamp": "2026-07-06T15:04:01.441Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783350241401-rnk39jwsm",
+      "timestamp": "2026-07-06T15:04:01.401Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783350004926-p0hapf7yk",
+      "timestamp": "2026-07-06T15:00:04.926Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783350004881-nzmhpw522",
+      "timestamp": "2026-07-06T15:00:04.881Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783349939422-kitfw3cis",
+      "timestamp": "2026-07-06T14:58:59.422Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783349939382-a2oyy41j9",
+      "timestamp": "2026-07-06T14:58:59.382Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Odobraté zo skupín: [Trimel]."
+    },
+    {
+      "id": "log-1783349846066-8rqnxdjo9",
+      "timestamp": "2026-07-06T14:57:26.066Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - GlobalProtect\". Zmena úrovní: [USER, Admin, Nemá]."
+    },
+    {
+      "id": "log-1783349845313-ip62l9e46",
+      "timestamp": "2026-07-06T14:57:25.313Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - FortiClient\". Zmena úrovní: [USER, Admin, Nemá]."
+    },
+    {
+      "id": "log-1783349839547-ggqvjil5o",
+      "timestamp": "2026-07-06T14:57:19.547Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - Domus\". Zmena úrovní: [USER, Admin, Nemá]."
+    },
+    {
+      "id": "log-1783349838862-aspv6zega",
+      "timestamp": "2026-07-06T14:57:18.862Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Pošta\". Zmena úrovní: [USER, Read only, Read/Write, Admin, Nemá]."
+    },
+    {
+      "id": "log-1783349837952-2213hr8ep",
+      "timestamp": "2026-07-06T14:57:17.952Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Objednávky\". Zmena úrovní: [Read/Write, USER, Read only, Admin, Nemá]."
+    },
+    {
+      "id": "log-1783349837214-d7vgahwxh",
+      "timestamp": "2026-07-06T14:57:17.214Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Obeh dokladov\". Zmena úrovní: [Read/Write, USER, Read only, Admin, Nemá]."
+    },
+    {
+      "id": "log-1783349836596-m02kvjoct",
+      "timestamp": "2026-07-06T14:57:16.596Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Fakturácia\". Zmena úrovní: [Read/Write, USER, Admin, Read only, Nemá]."
+    },
+    {
+      "id": "log-1783349835319-u7l3i1lad",
+      "timestamp": "2026-07-06T14:57:15.319Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Admin, USER, Nemá]."
+    },
+    {
+      "id": "log-1783349621486-vtx26si2w",
+      "timestamp": "2026-07-06T14:53:41.486Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Richard Makovica (user_1783349541848). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783349621440-3rz0bhqts",
+      "timestamp": "2026-07-06T14:53:41.440Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Richard Makovica (user_1783349541848). Pridané do skupín: [Trimel, AD]."
+    },
+    {
+      "id": "log-1783349569319-qv44wqopa",
+      "timestamp": "2026-07-06T14:52:49.319Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - FortiClient\". Zmena úrovní: [USER, Admin]."
+    },
+    {
+      "id": "log-1783349555745-t37kkwloq",
+      "timestamp": "2026-07-06T14:52:35.745Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Richard Makovica (user_1783349541848). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783349555693-h0n96gc4r",
+      "timestamp": "2026-07-06T14:52:35.693Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Richard Makovica (user_1783349541848). Pridané do skupín: [VPN]."
+    },
+    {
+      "id": "log-1783349541852-og2ev7m7y",
+      "timestamp": "2026-07-06T14:52:21.852Z",
+      "username": "admin",
+      "action": "Vytvorenie užívateľa",
+      "details": "Vytvorený užívateľ Richard Makovica (user_1783349541848) s rolou user."
+    },
+    {
+      "id": "log-1783349313069-8wm2whfs7",
+      "timestamp": "2026-07-06T14:48:33.069Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"VPN\". Pridané prístupy: [VPN - Domus, VPN - FortiClient]."
+    },
+    {
+      "id": "log-1783349301679-hjeeq73jr",
+      "timestamp": "2026-07-06T14:48:21.679Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - Domus\". Zmena úrovní: [USER, Admin]."
+    },
+    {
+      "id": "log-1783349300904-qtg5y9qnj",
+      "timestamp": "2026-07-06T14:48:20.904Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - FortiClient\". Zmena úrovní: [Read/Write, USER, Admin]."
+    },
+    {
+      "id": "log-1783349299621-6f5ngrtet",
+      "timestamp": "2026-07-06T14:48:19.621Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - FortiClient\". Zmena úrovní: [Read/Write, USER]."
+    },
+    {
+      "id": "log-1783349298623-4zw7yrnhp",
+      "timestamp": "2026-07-06T14:48:18.623Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - Domus\". Zmena úrovní: [USER]."
+    },
+    {
+      "id": "log-1783349296745-fz9kzs1e8",
+      "timestamp": "2026-07-06T14:48:16.745Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - Domus\". Zmena úrovní: []."
+    },
+    {
+      "id": "log-1783349292232-aeym2gdmd",
+      "timestamp": "2026-07-06T14:48:12.232Z",
+      "username": "admin",
+      "action": "Pridanie prístupu",
+      "details": "Pridaný nový prístup \"VPN - Domus\" s úrovňami: [Read/Write]."
+    },
+    {
+      "id": "log-1783349281894-5cxugtilk",
+      "timestamp": "2026-07-06T14:48:01.894Z",
+      "username": "admin",
+      "action": "Pridanie prístupu",
+      "details": "Pridaný nový prístup \"VPN - FortiClient\" s úrovňami: [Read/Write]."
+    },
+    {
+      "id": "log-1783349259396-nvd2jmuiw",
+      "timestamp": "2026-07-06T14:47:39.396Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN - GlobalProtect\". Zmena názvu: \"VPN\" -> \"VPN - GlobalProtect\"."
+    },
+    {
+      "id": "log-1783349246337-t71gzitre",
+      "timestamp": "2026-07-06T14:47:26.337Z",
+      "username": "admin",
+      "action": "Vytvorenie skupiny",
+      "details": "Vytvorená nová skupina prístupov \"VPN\" s prístupmi k: [[object Object]]."
+    },
+    {
+      "id": "log-1783349083177-e8aox2ad4",
+      "timestamp": "2026-07-06T14:44:43.177Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN\". Zmena názvu: \"VPN Okta\" -> \"VPN\"."
+    },
+    {
+      "id": "log-1783348781608-cpzblzxa0",
+      "timestamp": "2026-07-06T14:39:41.608Z",
+      "username": "admin",
+      "action": "Vymazanie skupiny",
+      "details": "Vymazaná skupina prístupov \"Základná skupina\". Všetkým užívateľom bolo priradenie k tejto skupine zrušené."
+    },
+    {
+      "id": "log-1783348777524-xpktxo845",
+      "timestamp": "2026-07-06T14:39:37.524Z",
+      "username": "admin",
+      "action": "Vymazanie skupiny",
+      "details": "Vymazaná skupina prístupov \"Administrátori\". Všetkým užívateľom bolo priradenie k tejto skupine zrušené."
+    },
+    {
+      "id": "log-1783348700615-q6h2j62zp",
+      "timestamp": "2026-07-06T14:38:20.615Z",
+      "username": "admin",
+      "action": "Vymazanie užívateľa",
+      "details": "Vymazaný užívateľ Richard Makovica (user_1783348471340)."
+    },
+    {
+      "id": "log-1783348518681-cqn0hvs9a",
+      "timestamp": "2026-07-06T14:35:18.681Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Igor Jedinák (user_1783348456947). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783348518612-tlft4zkk4",
+      "timestamp": "2026-07-06T14:35:18.612Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Igor Jedinák (user_1783348456947). Pridané do skupín: [Trimel, AD]."
+    },
+    {
+      "id": "log-1783348471345-h5wus91si",
+      "timestamp": "2026-07-06T14:34:31.345Z",
+      "username": "admin",
+      "action": "Vytvorenie užívateľa",
+      "details": "Vytvorený užívateľ Richard Makovica (user_1783348471340) s rolou user."
+    },
+    {
+      "id": "log-1783348456952-0yp45012i",
+      "timestamp": "2026-07-06T14:34:16.952Z",
+      "username": "admin",
+      "action": "Vytvorenie užívateľa",
+      "details": "Vytvorený užívateľ Igor Jedinák (user_1783348456947) s rolou user."
+    },
+    {
+      "id": "log-1783347365258-fxvl3sv02",
+      "timestamp": "2026-07-06T14:16:05.258Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783347358238-lk4cn4nkv",
+      "timestamp": "2026-07-06T14:15:58.238Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783335036300-ywkyt5iix",
+      "timestamp": "2026-07-06T10:50:36.300Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783335026527-3iiq2s6ix",
+      "timestamp": "2026-07-06T10:50:26.527Z",
+      "username": "uzivatel",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Užívateľ sa odhlásil."
+    },
+    {
+      "id": "log-1783334849282-zyrtvpieq",
+      "timestamp": "2026-07-06T10:47:29.282Z",
+      "username": "uzivatel",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Užívateľ (uzivatel). Detaily: Zmena mena: \"Užívateľ Petržalka\" -> \"Užívateľ\""
+    },
+    {
+      "id": "log-1783334666815-dnq3actdw",
+      "timestamp": "2026-07-06T10:44:26.815Z",
+      "username": "uzivatel",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Užívateľ Petržalka sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783334657206-9u95kj2pl",
+      "timestamp": "2026-07-06T10:44:17.206Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783334631142-d7ooh4mq8",
+      "timestamp": "2026-07-06T10:43:51.142Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"AD\"."
+    },
+    {
+      "id": "log-1783334615275-u7ly0ozzt",
+      "timestamp": "2026-07-06T10:43:35.275Z",
+      "username": "admin",
+      "action": "Vymazanie prístupu",
+      "details": "Vymazaný prístup \"AD\". Všetky prepojenia na tento prístup v skupinách boli odstránené."
+    },
+    {
+      "id": "log-1783334579061-5zo4n184d",
+      "timestamp": "2026-07-06T10:42:59.061Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Admin, USER]."
+    },
+    {
+      "id": "log-1783334578291-yvxloti25",
+      "timestamp": "2026-07-06T10:42:58.292Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Read/Write, Admin, USER]."
+    },
+    {
+      "id": "log-1783334565860-13tz5sgd7",
+      "timestamp": "2026-07-06T10:42:45.860Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Read/Write, Admin, Read only, USER]."
+    },
+    {
+      "id": "log-1783334564047-rxrt9myyt",
+      "timestamp": "2026-07-06T10:42:44.047Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Read/Write, Admin, Read only]."
+    },
+    {
+      "id": "log-1783334552848-2jmzqdlsg",
+      "timestamp": "2026-07-06T10:42:32.848Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Read/Write, USER, Admin, Read only]."
+    },
+    {
+      "id": "log-1783334549522-7sw91gx0s",
+      "timestamp": "2026-07-06T10:42:29.522Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Read/Write, USER, Admin]."
+    },
+    {
+      "id": "log-1783334548138-r3gawfeg8",
+      "timestamp": "2026-07-06T10:42:28.138Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Active Directory\". Zmena úrovní: [Read/Write, USER]."
+    },
+    {
+      "id": "log-1783334541863-2ajqp2vyi",
+      "timestamp": "2026-07-06T10:42:21.863Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN Okta\". Zmena úrovní: [USER, Admin]."
+    },
+    {
+      "id": "log-1783332457961-kfsnyzdf1",
+      "timestamp": "2026-07-06T10:07:37.961Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN Okta\". Zmena úrovní: [Read/Write, Admin]."
+    },
+    {
+      "id": "log-1783332448387-v1lwg4m0l",
+      "timestamp": "2026-07-06T10:07:28.387Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"VPN Okta\". Zmena názvu: \"VPN Access\" -> \"VPN Okta\"."
+    },
+    {
+      "id": "log-1783332435813-a3lljn8pu",
+      "timestamp": "2026-07-06T10:07:15.813Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Pošta\". Zmena úrovní: [Read only, Read/Write, Admin]."
+    },
+    {
+      "id": "log-1783332430654-zq3g9863g",
+      "timestamp": "2026-07-06T10:07:10.654Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Pošta\". Zmena úrovní: [Read only, Read/Write]."
+    },
+    {
+      "id": "log-1783332429252-19v514glq",
+      "timestamp": "2026-07-06T10:07:09.252Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Obeh dokladov\". Zmena úrovní: [Read/Write, Read only, Admin]."
+    },
+    {
+      "id": "log-1783332428170-xoegt9jj1",
+      "timestamp": "2026-07-06T10:07:08.170Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Obeh dokladov\". Zmena úrovní: [Read/Write, Read only]."
+    },
+    {
+      "id": "log-1783332349640-zw73shkse",
+      "timestamp": "2026-07-06T10:05:49.640Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783184092605-eqeltgb46",
+      "timestamp": "2026-07-04T16:54:52.605Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783184092551-8f6yte5kf",
+      "timestamp": "2026-07-04T16:54:52.551Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Pridané do skupín: [Administrátori]."
+    },
+    {
+      "id": "log-1783184077736-o9xjlxrk8",
+      "timestamp": "2026-07-04T16:54:37.736Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783184077692-yf0023mun",
+      "timestamp": "2026-07-04T16:54:37.692Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183885948-e0q46y3gk",
+      "timestamp": "2026-07-04T16:51:25.948Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183885898-hadd93jw3",
+      "timestamp": "2026-07-04T16:51:25.898Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183873199-az9lqhxw2",
+      "timestamp": "2026-07-04T16:51:13.199Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183873147-fzsrkyypq",
+      "timestamp": "2026-07-04T16:51:13.147Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183802061-unhlihia0",
+      "timestamp": "2026-07-04T16:50:02.061Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183802005-pm1qcz4mi",
+      "timestamp": "2026-07-04T16:50:02.005Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183775561-0i9uw1wwv",
+      "timestamp": "2026-07-04T16:49:35.561Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183775502-layjmgk2s",
+      "timestamp": "2026-07-04T16:49:35.502Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183508151-32vvoh8ce",
+      "timestamp": "2026-07-04T16:45:08.151Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183508111-qyia563he",
+      "timestamp": "2026-07-04T16:45:08.111Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183451483-ebw8s06x7",
+      "timestamp": "2026-07-04T16:44:11.483Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183451434-edqlq529o",
+      "timestamp": "2026-07-04T16:44:11.434Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183438174-dobdyugva",
+      "timestamp": "2026-07-04T16:43:58.174Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Fakturácia\". Zmena úrovní: [Read/Write, Admin, Read only]."
+    },
+    {
+      "id": "log-1783183436732-xtext8ztw",
+      "timestamp": "2026-07-04T16:43:56.733Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Fakturácia\". Zmena úrovní: [Read/Write, Admin]."
+    },
+    {
+      "id": "log-1783183430871-ggc43a9ww",
+      "timestamp": "2026-07-04T16:43:50.871Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183430801-ccmlztd38",
+      "timestamp": "2026-07-04T16:43:50.801Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183406254-hi3fhwxbi",
+      "timestamp": "2026-07-04T16:43:26.254Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183406192-p92uor7t5",
+      "timestamp": "2026-07-04T16:43:26.192Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183253405-i8swyt53s",
+      "timestamp": "2026-07-04T16:40:53.405Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183253355-f8fyks3af",
+      "timestamp": "2026-07-04T16:40:53.355Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183246190-spwze9cl7",
+      "timestamp": "2026-07-04T16:40:46.190Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183246139-a4askutxf",
+      "timestamp": "2026-07-04T16:40:46.139Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183237985-5god8yh5a",
+      "timestamp": "2026-07-04T16:40:37.985Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183237930-xw5ddeyxn",
+      "timestamp": "2026-07-04T16:40:37.930Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183226785-lgizi2h3j",
+      "timestamp": "2026-07-04T16:40:26.785Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183226726-bw88h0od4",
+      "timestamp": "2026-07-04T16:40:26.726Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183199436-epz5xoh0y",
+      "timestamp": "2026-07-04T16:39:59.436Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183199392-fgdovt31e",
+      "timestamp": "2026-07-04T16:39:59.392Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183097708-7pncscppv",
+      "timestamp": "2026-07-04T16:38:17.708Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Martin Cibulka (martin.cibulka). Detaily: Zmena priamych prístupov"
+    },
+    {
+      "id": "log-1783183097673-c94aj7uo6",
+      "timestamp": "2026-07-04T16:38:17.673Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783183036217-fj5z5mkcx",
+      "timestamp": "2026-07-04T16:37:16.217Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Objednávky\". Zmena úrovní: [Read/Write, Read only, Admin]."
+    },
+    {
+      "id": "log-1783183034841-l5n4svd8s",
+      "timestamp": "2026-07-04T16:37:14.841Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Objednávky\". Zmena úrovní: [Read/Write, Read only]."
+    },
+    {
+      "id": "log-1783182867618-g03mrrsoc",
+      "timestamp": "2026-07-04T16:34:27.618Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Žiadna zmena."
+    },
+    {
+      "id": "log-1783182836661-qkpi0xi8c",
+      "timestamp": "2026-07-04T16:33:56.661Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"Trimel\". Pridané prístupy: [Trimel - Fakturácia, Trimel - Obeh dokladov, Trimel - Objednávky, Trimel - Pošta]."
+    },
+    {
+      "id": "log-1783182707853-ndeppglwz",
+      "timestamp": "2026-07-04T16:31:47.853Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Objednávky\". Zmena názvu: \"Jira Cloud\" -> \"Trimel - Objednávky\"."
+    },
+    {
+      "id": "log-1783182695720-ptthldyk9",
+      "timestamp": "2026-07-04T16:31:35.720Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Fakturácia\". Zmena názvu: \"Corporate Email\" -> \"Trimel - Fakturácia\"."
+    },
+    {
+      "id": "log-1783182674416-w81rfoyi7",
+      "timestamp": "2026-07-04T16:31:14.416Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Obeh dokladov\". Zmena názvu: \"SAP ERP\" -> \"Trimel - Obeh dokladov\"."
+    },
+    {
+      "id": "log-1783182652216-ceed09hzj",
+      "timestamp": "2026-07-04T16:30:52.216Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Pošta\". Zmena názvu: \"Trimel\" -> \"Trimel - Pošta\"."
+    },
+    {
+      "id": "log-1783182434871-gyu5xrvhi",
+      "timestamp": "2026-07-04T16:27:14.871Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"Trimel\". Odobraté prístupy: [Corporate Email, Jira Cloud, VPN Access, SAP ERP, Trimel]."
+    },
+    {
+      "id": "log-1783181946617-uqx8hgztj",
+      "timestamp": "2026-07-04T16:19:06.617Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Užívateľ Petržalka (uzivatel). Pridané do skupín: [AD]."
+    },
+    {
+      "id": "log-1783181929106-7e7mfhj1g",
+      "timestamp": "2026-07-04T16:18:49.106Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Martin Cibulka (martin.cibulka). Pridané do skupín: [Trimel]."
+    },
+    {
+      "id": "log-1783181210580-y3yvl7zi7",
+      "timestamp": "2026-07-04T16:06:50.580Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"Trimel\". Pridané prístupy: [Trimel]."
+    },
+    {
+      "id": "log-1783179713374-2frwfr3ud",
+      "timestamp": "2026-07-04T15:41:53.374Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"AD\". Pridané prístupy: [Active Directory]."
+    },
+    {
+      "id": "log-1783179419484-coh73c78j",
+      "timestamp": "2026-07-04T15:36:59.484Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"Trimel\". Pridané prístupy: [SAP ERP]."
+    },
+    {
+      "id": "log-1783176313434-3d8xgfe98",
+      "timestamp": "2026-07-04T14:45:13.434Z",
+      "username": "admin",
+      "action": "Vytvorenie skupiny",
+      "details": "Vytvorená nová skupina oprávnení \"AD\" s prístupmi k: []."
+    },
+    {
+      "id": "log-1783175743408-qvij6k83g",
+      "timestamp": "2026-07-04T14:35:43.408Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"Trimel\". Zmena názvu: \"Vývojári\" -> \"Trimel\"."
+    },
+    {
+      "id": "log-1783175584973-ifx3ci4n3",
+      "timestamp": "2026-07-04T14:33:04.973Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783175584959-w9n8rxzpm",
+      "timestamp": "2026-07-04T14:33:04.959Z",
+      "username": "admin",
+      "action": "Vymazanie skupiny",
+      "details": "Vymazaná skupina oprávnení \"Testeri\". Všetkým užívateľom bolo priradenie k tejto skupine zrušené."
+    },
+    {
+      "id": "log-1783175584951-0q1pnrlih",
+      "timestamp": "2026-07-04T14:33:04.951Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Užívateľ Petržalka (uzivatel). Pridané do skupín: [Testeri]. Odobraté zo skupín: [Vývojári]."
+    },
+    {
+      "id": "log-1783175584941-7d84966gm",
+      "timestamp": "2026-07-04T14:33:04.941Z",
+      "username": "admin",
+      "action": "Úprava skupiny",
+      "details": "Upravená skupina \"Testeri\". Pridané systémy: [VPN Access]."
+    },
+    {
+      "id": "log-1783175584931-v2l3vqdpa",
+      "timestamp": "2026-07-04T14:33:04.931Z",
+      "username": "admin",
+      "action": "Vytvorenie skupiny",
+      "details": "Vytvorená nová skupina oprávnení \"Testeri\" s prístupmi k: [Jira Cloud]."
+    },
+    {
+      "id": "log-1783175584894-xlstw0ee3",
+      "timestamp": "2026-07-04T14:33:04.895Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783174688869-1tf9rqgjp",
+      "timestamp": "2026-07-04T14:18:08.869Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783174669990-s92t8e12r",
+      "timestamp": "2026-07-04T14:17:49.990Z",
+      "username": "admin",
+      "action": "Prihlásenie (Neúspešné)",
+      "details": "Pokus o prihlásenie s nesprávnym heslom."
+    },
+    {
+      "id": "log-1783174662092-q6vyq5ssl",
+      "timestamp": "2026-07-04T14:17:42.094Z",
+      "username": "uzivatel",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Užívateľ Petržalka sa odhlásil."
+    },
+    {
+      "id": "log-1783169964648-hvda2y9y6",
+      "timestamp": "2026-07-04T12:59:24.648Z",
+      "username": "uzivatel",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Užívateľ Petržalka sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783169956510-hjc2vk2y1",
+      "timestamp": "2026-07-04T12:59:16.510Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783169938931-m9b1zlded",
+      "timestamp": "2026-07-04T12:58:58.931Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Administrátor (admin). Detaily: Zmena hesla"
+    },
+    {
+      "id": "log-1783169925560-3lxaol4zl",
+      "timestamp": "2026-07-04T12:58:45.560Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783169915735-8yozgln8j",
+      "timestamp": "2026-07-04T12:58:35.735Z",
+      "username": "martin.cibulka",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Martin Cibulka sa odhlásil."
+    },
+    {
+      "id": "log-1783169864052-issxafs79",
+      "timestamp": "2026-07-04T12:57:44.052Z",
+      "username": "martin.cibulka",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Martin Cibulka sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783169853130-1voi2a58n",
+      "timestamp": "2026-07-04T12:57:33.130Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor sa odhlásil."
+    },
+    {
+      "id": "log-1783169848304-98zffr62k",
+      "timestamp": "2026-07-04T12:57:28.305Z",
+      "username": "admin",
+      "action": "Vytvorenie užívateľa",
+      "details": "Vytvorený užívateľ Martin Cibulka (martin.cibulka) s rolou user."
+    },
+    {
+      "id": "log-1783169831053-5og2th77q",
+      "timestamp": "2026-07-04T12:57:11.053Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783169820980-7iozyh7y7",
+      "timestamp": "2026-07-04T12:57:00.980Z",
+      "username": "admin",
+      "action": "Prihlásenie (Neúspešné)",
+      "details": "Pokus o prihlásenie s nesprávnym heslom."
+    },
+    {
+      "id": "log-1783082182904-x534p81gl",
+      "timestamp": "2026-07-03T12:36:22.904Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783082170578-98li6w9s5",
+      "timestamp": "2026-07-03T12:36:10.578Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Administrátor (admin). Detaily: Zmena mena: \"Administrátor Nový\" -> \"Administrátor\", Zmena hesla"
+    },
+    {
+      "id": "log-1783082143722-gafhl6fg8",
+      "timestamp": "2026-07-03T12:35:43.722Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor Nový sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783076730251-nltnhlybv",
+      "timestamp": "2026-07-03T11:05:30.251Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor Nový sa odhlásil."
+    },
+    {
+      "id": "log-1783076730245-pjm1nzfq8",
+      "timestamp": "2026-07-03T11:05:30.245Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Administrátor Nový (admin). Detaily: Zmena hesla"
+    },
+    {
+      "id": "log-1783076730227-g1285fb53",
+      "timestamp": "2026-07-03T11:05:30.227Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor Nový sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783076705137-8co83e1dw",
+      "timestamp": "2026-07-03T11:05:05.137Z",
+      "username": "admin",
+      "action": "Odhlásenie",
+      "details": "Užívateľ Administrátor Nový sa odhlásil."
+    },
+    {
+      "id": "log-1783076705132-4kbi48kd8",
+      "timestamp": "2026-07-03T11:05:05.132Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Administrátor Nový (admin). Detaily: Zmena mena: \"Administrátor\" -> \"Administrátor Nový\", Zmena hesla"
+    },
+    {
+      "id": "log-1783076705119-xl8cqephd",
+      "timestamp": "2026-07-03T11:05:05.119Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783076548086-nsyqf7tkj",
+      "timestamp": "2026-07-03T11:02:28.086Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783074053530-0kd63y2bz",
+      "timestamp": "2026-07-03T10:20:53.530Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783073675305-mttnh6xx5",
+      "timestamp": "2026-07-03T10:14:35.305Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1783071101135-am08v4qc6",
+      "timestamp": "2026-07-03T09:31:41.135Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
+    {
+      "id": "log-1",
+      "timestamp": "2026-07-03T09:31:41.132Z",
+      "username": "Systém",
+      "action": "Inicializácia databázy",
+      "details": "Vytvorenie počiatočných účtov a oprávnení."
+    }
+  ],
+  "sessions": {
+    "1mnUStfLFF73-hbg2ehXrQ5wkTkq7WdK": {
+      "cookie": {
+        "originalMaxAge": 86399999,
+        "expires": "2026-07-04T12:36:10.586Z",
+        "secure": false,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "user": {
+        "id": "admin-id",
+        "username": "admin",
+        "name": "Administrátor",
+        "role": "admin"
+      }
+    },
+    "grgEWYLBlMF7Izl1EkWwQgcXKJXKTouH": {
+      "cookie": {
+        "originalMaxAge": 86400000,
+        "expires": "2026-07-05T14:18:08.871Z",
+        "secure": false,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "user": {
+        "id": "admin-id",
+        "username": "admin",
+        "name": "Administrátor",
+        "role": "admin"
+      }
+    },
+    "qisX9uigVdgILvgUnP2E7fPPqE_Mhj8z": {
+      "cookie": {
+        "originalMaxAge": 86400000,
+        "expires": "2026-07-09T13:55:54.583Z",
+        "secure": false,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "user": {
+        "id": "admin-id",
+        "username": "admin",
+        "name": "Administrátor",
+        "role": "admin",
+        "permissions": {
+          "user_management": "Zápis",
+          "auth_user_management": "Zápis",
+          "group_management": "Zápis",
+          "access_config": "Zápis",
+          "role_management": "Zápis",
+          "audit_log": "Čítanie",
+          "global_settings": "Zápis"
+        }
+      }
+    },
+    "OB8ubr4b7rtiyg2ZKdnssOGPZnnf5Obc": {
+      "cookie": {
+        "originalMaxAge": 86400000,
+        "expires": "2026-07-09T14:25:02.375Z",
+        "secure": false,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "user": {
+        "id": "user-id",
+        "username": "uzivatel",
+        "name": "Užívateľ",
+        "role": "user",
+        "permissions": {
+          "user_management": "Čítanie",
+          "auth_user_management": "Žiadne",
+          "group_management": "Čítanie",
+          "access_config": "Žiadne",
+          "role_management": "Čítanie",
+          "audit_log": "Žiadne",
+          "global_settings": "Žiadne"
+        }
+      }
+    },
+    "yoHfjZN4cV8FeK3iB-_4aHpE7-CS5r0h": {
+      "cookie": {
+        "originalMaxAge": 86400000,
+        "expires": "2026-07-22T06:38:34.538Z",
+        "secure": false,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "user": {
+        "id": "admin-id",
+        "username": "admin",
+        "name": "Administrátor",
+        "role": "admin",
+        "permissions": {
+          "user_management": "Zápis",
+          "auth_user_management": "Zápis",
+          "group_management": "Zápis",
+          "access_config": "Zápis",
+          "role_management": "Zápis",
+          "audit_log": "Čítanie",
+          "global_settings": "Zápis"
+        }
+      }
+    }
+  },
+  "groups": [
+    {
+      "id": "group-dev",
+      "name": "Trimel",
+      "description": "Oprávnenia v IS SAMO",
+      "systems": [
+        {
+          "name": "Trimel - Fakturácia",
+          "level": "Read/Write"
+        },
+        {
+          "name": "Trimel - Obeh dokladov",
+          "level": "Read/Write"
+        },
+        {
+          "name": "Trimel - Objednávky",
+          "level": "Read/Write"
+        },
+        {
+          "name": "Trimel - Pošta",
+          "level": "Read only"
+        }
+      ]
+    },
+    {
+      "id": "group-1783176313430-vbod5qk",
+      "name": "AD",
+      "description": "Skupiny v Active directory",
+      "systems": [
+        {
+          "name": "Active Directory",
+          "level": "USER"
+        }
+      ]
+    },
+    {
+      "id": "group-1783349246333-w9a1cdq",
+      "name": "VPN",
+      "description": "Prístup do rôznych VPN",
+      "systems": [
+        {
+          "name": "VPN - GlobalProtect",
+          "level": "Read/Write"
+        },
+        {
+          "name": "VPN - Domus",
+          "level": "Read/Write"
+        },
+        {
+          "name": "VPN - FortiClient",
+          "level": "Read/Write"
+        }
+      ]
+    }
+  ],
+  "userGroups": [
+    {
+      "userId": "admin-id",
+      "groupIds": []
+    },
+    {
+      "userId": "user-id",
+      "groupIds": [
+        "group-1783176313430-vbod5qk"
+      ]
+    },
+    {
+      "userId": "user-1783169848301-c2ohov2",
+      "groupIds": [
+        "group-dev",
+        "group-1783176313430-vbod5qk",
+        "group-1783349246333-w9a1cdq"
+      ]
+    },
+    {
+      "userId": "user-1783348456947-fg3mc57",
+      "groupIds": [
+        "group-dev",
+        "group-1783176313430-vbod5qk"
+      ]
+    },
+    {
+      "userId": "user-1783349541848-unihmw8",
+      "groupIds": [
+        "group-1783349246333-w9a1cdq",
+        "group-dev",
+        "group-1783176313430-vbod5qk"
+      ]
+    }
+  ],
+  "accessItems": [
+    {
+      "id": "active-directory",
+      "name": "Active Directory",
+      "levels": [
+        "Admin",
+        "USER",
+        "Nemá"
+      ]
+    },
+    {
+      "id": "sap-erp",
+      "name": "Trimel - Obeh dokladov",
+      "levels": [
+        "Read/Write",
+        "USER",
+        "Read only",
+        "Admin",
+        "Nemá"
+      ]
+    },
+    {
+      "id": "corporate-email",
+      "name": "Trimel - Fakturácia",
+      "levels": [
+        "Read/Write",
+        "USER",
+        "Admin",
+        "Read only",
+        "Nemá"
+      ]
+    },
+    {
+      "id": "jira-cloud",
+      "name": "Trimel - Objednávky",
+      "levels": [
+        "Read/Write",
+        "USER",
+        "Read only",
+        "Admin",
+        "Nemá"
+      ]
+    },
+    {
+      "id": "vpn-access",
+      "name": "VPN - GlobalProtect",
+      "levels": [
+        "USER",
+        "Admin",
+        "Nemá"
+      ]
+    },
+    {
+      "id": "trimel",
+      "name": "Trimel - Pošta",
+      "levels": [
+        "USER",
+        "Read only",
+        "Read/Write",
+        "Admin",
+        "Nemá"
+      ]
+    },
+    {
+      "id": "vpn-forticlient-1783349281882",
+      "name": "VPN - FortiClient",
+      "levels": [
+        "USER",
+        "Admin",
+        "Nemá"
+      ]
+    },
+    {
+      "id": "vpn-domus-1783349292227",
+      "name": "VPN - Domus",
+      "levels": [
+        "USER",
+        "Admin",
+        "Nemá"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "admin",
+      "name": "Administrátor IAM",
+      "icon": "🛡️",
+      "badgeClass": "badge-admin",
+      "description": "Úplný správcovský prístup k správe identít a oprávnení v systéme IAM Petržalka.",
+      "permissions": {
+        "user_management": "Zápis",
+        "auth_user_management": "Zápis",
+        "group_management": "Zápis",
+        "access_config": "Zápis",
+        "role_management": "Zápis",
+        "audit_log": "Čítanie",
+        "global_settings": "Zápis"
+      }
+    },
+    {
+      "id": "user",
+      "name": "Oprávnený užívateľ",
+      "icon": "👤",
+      "badgeClass": "badge-user",
+      "description": "Štandardný používateľský prístup pre bežných zamestnancov a spolupracovníkov.",
+      "permissions": {
+        "user_management": "Čítanie",
+        "auth_user_management": "Žiadne",
+        "group_management": "Čítanie",
+        "access_config": "Žiadne",
+        "role_management": "Čítanie",
+        "audit_log": "Žiadne",
+        "global_settings": "Žiadne"
+      }
+    }
+  ]
+}
