@@ -26,6 +26,7 @@ export default function UsersTab({ currentUser }) {
   const [showManageAccessModal, setShowManageAccessModal] = useState(false);
   const [manageAccessUser, setManageAccessUser] = useState(null);
   const [tempUserGroupIds, setTempUserGroupIds] = useState([]);
+  const [tempUserSystems, setTempUserSystems] = useState([]);
   const [accessItems, setAccessItems] = useState([]);
 
   const toggleUserExpand = (userId) => {
@@ -40,6 +41,7 @@ export default function UsersTab({ currentUser }) {
     setManageAccessUser(user);
     const mapping = userGroups.find(ug => ug.userId === user.id) || { groupIds: [] };
     setTempUserGroupIds(mapping.groupIds);
+    setTempUserSystems(user.systems || []);
     setShowManageAccessModal(true);
   };
 
@@ -56,11 +58,16 @@ export default function UsersTab({ currentUser }) {
       if (!grpRes.ok) throw new Error(grpData.message || 'Chyba pri priraďovaní skupín.');
       setUserGroups(grpData);
 
-      // 2. Save user
+      // Filter and save overrides only for active inherited systems
+      const effectiveAccesses = getEffectiveAccessesFromGroups(tempUserGroupIds, tempUserSystems);
+      const activeSystemNames = effectiveAccesses.map(a => a.name);
+      const overridesToSave = tempUserSystems.filter(sys => activeSystemNames.includes(sys.name));
+
+      // 2. Save user with overrides
       const usrRes = await fetch(`/api/users/${manageAccessUser.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: manageAccessUser.name })
+        body: JSON.stringify({ name: manageAccessUser.name, systems: overridesToSave })
       });
       const usrData = await usrRes.json();
       if (!usrRes.ok) throw new Error(usrData.message || 'Chyba pri ukladaní zmien.');
@@ -73,7 +80,7 @@ export default function UsersTab({ currentUser }) {
     }
   };
 
-  const getEffectiveAccessesFromGroups = (groupIdsList) => {
+  const getEffectiveAccessesFromGroups = (groupIdsList, directSystemsList = []) => {
     const userGroupItems = groups.filter(g => groupIdsList.includes(g.id));
     const accessMap = {};
     
@@ -106,6 +113,20 @@ export default function UsersTab({ currentUser }) {
           }
         }
       });
+    });
+
+    // Apply direct overrides only for inherited systems
+    directSystemsList.forEach(sys => {
+      const name = sys.name;
+      let level = sys.level;
+      
+      if (accessMap[name]) {
+        const allowed = accessItems.find(it => it.name === name)?.levels || ['Read/Write'];
+        if (!allowed.includes(level)) {
+          level = allowed[0] || 'Read/Write';
+        }
+        accessMap[name].level = level;
+      }
     });
     
     return Object.values(accessMap).sort((a, b) => a.name.localeCompare(b.name, 'sk'));
@@ -158,6 +179,7 @@ export default function UsersTab({ currentUser }) {
   }, [currentUser]);
 
   const getUserEffectiveAccesses = (userId) => {
+    const user = users.find(u => u.id === userId);
     const mapping = userGroups.find(ug => ug.userId === userId) || { groupIds: [] };
     const userGroupItems = groups.filter(g => mapping.groupIds.includes(g.id));
     
@@ -192,6 +214,22 @@ export default function UsersTab({ currentUser }) {
         }
       });
     });
+
+    // Apply direct overrides only for inherited systems
+    if (user && user.systems && Array.isArray(user.systems)) {
+      user.systems.forEach(sys => {
+        const name = sys.name;
+        let level = sys.level;
+        
+        if (accessMap[name]) {
+          const allowed = accessItems.find(it => it.name === name)?.levels || ['Read/Write'];
+          if (!allowed.includes(level)) {
+            level = allowed[0] || 'Read/Write';
+          }
+          accessMap[name].level = level;
+        }
+      });
+    }
     
     return Object.values(accessMap).sort((a, b) => a.name.localeCompare(b.name, 'sk'));
   };
@@ -790,7 +828,7 @@ export default function UsersTab({ currentUser }) {
                 </span>
                 
                 {(() => {
-                  const resultingAccesses = getEffectiveAccessesFromGroups(tempUserGroupIds);
+                  const resultingAccesses = getEffectiveAccessesFromGroups(tempUserGroupIds, tempUserSystems);
                   
                   // Categorize
                   const categories = {
@@ -846,17 +884,37 @@ export default function UsersTab({ currentUser }) {
                                       Z: {access.groups.join(', ')}
                                     </div>
                                   </div>
-                                  <span style={{ 
-                                    background: access.level === 'Admin' ? 'rgba(239, 68, 68, 0.15)' : access.level === 'Read only' ? 'rgba(245, 158, 11, 0.15)' : access.level === 'USER' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(6, 182, 212, 0.15)',
-                                    color: access.level === 'Admin' ? '#fca5a5' : access.level === 'Read only' ? '#fde047' : access.level === 'USER' ? '#a7f3d0' : '#67e8f9',
-                                    border: access.level === 'Admin' ? '1px solid rgba(239, 68, 68, 0.3)' : access.level === 'Read only' ? '1px solid rgba(245, 158, 11, 0.3)' : access.level === 'USER' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(6, 182, 212, 0.3)',
-                                    fontSize: '0.75rem',
-                                    padding: '0.2rem 0.6rem',
-                                    borderRadius: '4px',
-                                    fontWeight: '600'
-                                  }}>
-                                    {access.level}
-                                  </span>
+                                  <select 
+                                    value={access.level}
+                                    onChange={e => {
+                                      const newLevel = e.target.value;
+                                      const exists = tempUserSystems.some(s => s.name === access.name);
+                                      if (exists) {
+                                        setTempUserSystems(tempUserSystems.map(s => s.name === access.name ? { ...s, level: newLevel } : s));
+                                      } else {
+                                        setTempUserSystems([...tempUserSystems, { name: access.name, level: newLevel }]);
+                                      }
+                                    }}
+                                    className="badge-select"
+                                    style={{ 
+                                      background: access.level === 'Admin' ? 'rgba(239, 68, 68, 0.1)' : access.level === 'Read only' ? 'rgba(245, 158, 11, 0.1)' : access.level === 'USER' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(6, 182, 212, 0.1)',
+                                      color: access.level === 'Admin' ? '#fca5a5' : access.level === 'Read only' ? '#fde047' : access.level === 'USER' ? '#a7f3d0' : '#67e8f9',
+                                      border: access.level === 'Admin' ? '1px solid rgba(239, 68, 68, 0.2)' : access.level === 'Read only' ? '1px solid rgba(245, 158, 11, 0.2)' : access.level === 'USER' ? '1px solid rgba(16, 185, 129, 0.2)' : '1px solid rgba(6, 182, 212, 0.2)',
+                                      fontSize: '0.75rem',
+                                      padding: '0.15rem 0.5rem',
+                                      borderRadius: '4px',
+                                      fontWeight: '600',
+                                      cursor: 'pointer',
+                                      outline: 'none',
+                                      borderStyle: 'solid',
+                                      borderWidth: '1px',
+                                      textAlign: 'center'
+                                    }}
+                                  >
+                                    {(accessItems.find(it => it.name === access.name)?.levels || ['Read/Write']).map(lvl => (
+                                      <option key={lvl} value={lvl} style={{ background: 'var(--card-bg)', color: 'white' }}>{lvl}</option>
+                                    ))}
+                                  </select>
                                 </div>
                               ))}
                             </div>

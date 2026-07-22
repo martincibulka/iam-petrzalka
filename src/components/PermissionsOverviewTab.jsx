@@ -93,6 +93,22 @@ export default function PermissionsOverviewTab({ currentUser }) {
       });
     });
 
+    // Apply direct overrides only for inherited systems
+    if (user && user.systems && Array.isArray(user.systems)) {
+      user.systems.forEach(sys => {
+        const name = sys.name;
+        let level = sys.level;
+
+        if (accessMap[name]) {
+          const allowed = accessItems.find(it => it.name === name)?.levels || ['Read/Write'];
+          if (!allowed.includes(level)) {
+            level = allowed[0] || 'Read/Write';
+          }
+          accessMap[name].level = level;
+        }
+      });
+    }
+
     return Object.values(accessMap).sort((a, b) => a.name.localeCompare(b.name, 'sk'));
   };
 

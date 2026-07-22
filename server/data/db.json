@@ -69,6 +69,27 @@
   ],
   "logs": [
     {
+      "id": "log-1784724870598-6qy497ws6",
+      "timestamp": "2026-07-22T12:54:30.598Z",
+      "username": "admin",
+      "action": "Úprava prístupu",
+      "details": "Upravený prístup \"Trimel - Pošta\". Zmena úrovní: [USER, Read only, Read/Write, Nemá]."
+    },
+    {
+      "id": "log-1784724277593-q8qopn1ty",
+      "timestamp": "2026-07-22T12:44:37.593Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Richard Makovica (user_1783349541848). Pridané do skupín: [Trimel, AD]."
+    },
+    {
+      "id": "log-1784724171435-5nwvkqbgp",
+      "timestamp": "2026-07-22T12:42:51.436Z",
+      "username": "admin",
+      "action": "Zmena skupín užívateľa",
+      "details": "Zmena skupín prístupov pre Richard Makovica (user_1783349541848). Pridané do skupín: [VPN]."
+    },
+    {
       "id": "log-1784721305425-z4a51oh4a",
       "timestamp": "2026-07-22T11:55:05.425Z",
       "username": "admin",
@@ -1771,7 +1792,11 @@
     },
     {
       "userId": "user-1783349541848-unihmw8",
-      "groupIds": []
+      "groupIds": [
+        "group-1783349246333-w9a1cdq",
+        "group-dev",
+        "group-1783176313430-vbod5qk"
+      ]
     }
   ],
   "accessItems": [
@@ -1833,7 +1858,6 @@
         "USER",
         "Read only",
         "Read/Write",
-        "Admin",
         "Nemá"
       ]
     },

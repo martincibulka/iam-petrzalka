@@ -434,6 +434,7 @@ app.post('/api/users', requireAuth, requirePermission('user_management', 'Zápis
     department: department ? department.trim() : '',
     entry_date: entry_date ? entry_date.trim() : '',
     exit_date: exit_date ? exit_date.trim() : '',
+    systems: [],
     created_at: new Date().toISOString()
   };
 
@@ -454,7 +455,7 @@ app.post('/api/users', requireAuth, requirePermission('user_management', 'Zápis
 
 app.put('/api/users/:id', requireAuth, (req, res) => {
   const { id } = req.params;
-  const { name, role, status, password, email, department, entry_date, exit_date } = req.body;
+  const { name, role, status, password, systems, email, department, entry_date, exit_date } = req.body;
 
   const isSelfUpdate = req.session.user.id === id;
   const hasUserWrite = req.session.user.permissions?.user_management === 'Zápis';
@@ -518,6 +519,10 @@ app.put('/api/users/:id', requireAuth, (req, res) => {
     if (password && password.trim() !== '') {
       changeDetails.push(`Zmena hesla`);
       user.password = password.trim();
+    }
+    if (systems && Array.isArray(systems)) {
+      changeDetails.push(`Zmena priamych prístupov`);
+      user.systems = systems;
     }
     if (email !== undefined) {
       const trimmedEmail = email.trim();
