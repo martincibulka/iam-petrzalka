@@ -351,12 +351,10 @@ export default function PermissionsTab({ currentUser }) {
     const myMapping = userGroups.find(ug => ug.userId === currentUser.id) || { groupIds: [] };
     const myGroups = groups.filter(g => myMapping.groupIds.includes(g.id));
     
-    // Effective systems: union of all systems across my groups + my direct systems
-    const directSystems = currentUser.systems || [];
-    const directNames = directSystems.map(sys => typeof sys === 'object' ? sys.name : sys);
+    // Effective systems: union of all systems across my groups
     const groupNames = myGroups.reduce((acc, g) => [...acc, ...g.systems.map(s => typeof s === 'object' ? s.name : s)], []);
     
-    const myEffectiveSystems = Array.from(new Set([...groupNames, ...directNames]));
+    const myEffectiveSystems = Array.from(new Set(groupNames));
 
     return (
       <div className="view-container">
@@ -413,9 +411,8 @@ export default function PermissionsTab({ currentUser }) {
           {accessItems.map(item => {
             const system = item.name;
             const hasAccess = myEffectiveSystems.includes(system);
-            const isDirect = directNames.includes(system);
             const groupList = myGroups.filter(g => g.systems.map(s => typeof s === 'object' ? s.name : s).includes(system)).map(g => g.name);
-            const grantingGroups = isDirect ? ['Priame priradenie', ...groupList] : groupList;
+            const grantingGroups = groupList;
 
             return (
               <div key={system} className="card" style={{ 
