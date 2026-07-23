@@ -44,7 +44,7 @@ export default function UsersTab({ currentUser }) {
   const [accessItems, setAccessItems] = useState([]);
 
   // Import State
-  const [showImportModal, setShowImportModal] = useState(false);
+  const [importMode, setImportMode] = useState(false);
   const [importedUsers, setImportedUsers] = useState([]);
   const [importGroupIds, setImportGroupIds] = useState([]);
 
@@ -229,7 +229,8 @@ export default function UsersTab({ currentUser }) {
 
       setUsers(data.users);
       setUserGroups(data.userGroups);
-      setShowImportModal(false);
+      setShowAddForm(false);
+      setImportMode(false);
       setImportedUsers([]);
       setImportGroupIds([]);
       
@@ -565,27 +566,21 @@ export default function UsersTab({ currentUser }) {
           <p className="page-subtitle">Správa užívateľských účtov a ich prístupových rolí</p>
         </div>
         {userPerm === 'Zápis' && (
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <button className="btn btn-primary" onClick={() => { 
-              setShowEditForm(false); 
-              setShowAddForm(!showAddForm); 
-              setName('');
-              setStatus('Aktivovaný');
-              setEmail('');
-              setDepartment('');
-              setEntryDate('');
-              setExitDate('');
-            }}>
-              {showAddForm ? 'Zrušiť' : '➕ Nový užívateľ'}
-            </button>
-            <button className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }} onClick={() => {
-              setShowImportModal(true);
-              setImportedUsers([]);
-              setImportGroupIds([]);
-            }}>
-              📥 Import používateľov
-            </button>
-          </div>
+          <button className="btn btn-primary" onClick={() => { 
+            setShowEditForm(false); 
+            setShowAddForm(!showAddForm); 
+            setImportMode(false);
+            setName('');
+            setStatus('Aktivovaný');
+            setEmail('');
+            setDepartment('');
+            setEntryDate('');
+            setExitDate('');
+            setImportedUsers([]);
+            setImportGroupIds([]);
+          }}>
+            {showAddForm ? 'Zrušiť' : '➕ Nový užívateľ'}
+          </button>
         )}
       </div>
 
@@ -593,11 +588,52 @@ export default function UsersTab({ currentUser }) {
 
       {showAddForm && (
         <div className="modal-overlay">
-          <div className="modal-content card" style={{ maxWidth: '750px', animation: 'fadeIn 0.25s ease-out' }}>
-            <div className="modal-header">
-              <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                ➕ Nový užívateľ
-              </h3>
+          <div className="modal-content card" style={{ maxWidth: importMode ? '850px' : '750px', transition: 'max-width 0.25s ease-in-out', animation: 'fadeIn 0.25s ease-out' }}>
+            <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                <span 
+                  onClick={() => {
+                    setImportMode(false);
+                    setImportedUsers([]);
+                    setImportGroupIds([]);
+                  }}
+                  style={{ 
+                    fontSize: '1.25rem', 
+                    fontWeight: 'bold', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '0.5rem', 
+                    cursor: 'pointer',
+                    color: !importMode ? 'white' : 'var(--text-muted)',
+                    borderBottom: !importMode ? '2px solid var(--accent-primary)' : '2px solid transparent',
+                    paddingBottom: '0.25rem',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  ➕ Nový užívateľ
+                </span>
+                <span 
+                  onClick={() => {
+                    setImportMode(true);
+                    setImportedUsers([]);
+                    setImportGroupIds([]);
+                  }}
+                  style={{ 
+                    fontSize: '1.25rem', 
+                    fontWeight: 'bold', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '0.5rem', 
+                    cursor: 'pointer',
+                    color: importMode ? 'white' : 'var(--text-muted)',
+                    borderBottom: importMode ? '2px solid var(--accent-primary)' : '2px solid transparent',
+                    paddingBottom: '0.25rem',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  📥 Import z Excelu/CSV
+                </span>
+              </div>
               <button 
                 className="btn-close" 
                 onClick={() => {
@@ -608,62 +644,7 @@ export default function UsersTab({ currentUser }) {
                   setDepartment('');
                   setEntryDate('');
                   setExitDate('');
-                }}
-              >
-                ✕
-              </button>
-            </div>
-            <form onSubmit={handleAddSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Meno užívateľa</label>
-                  <input type="text" className="form-input" placeholder="napr. Ján Mrkvička" value={name} onChange={e => setName(e.target.value)} required />
-                </div>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Emailová adresa</label>
-                  <input type="email" className="form-input" placeholder="napr. jan.mrkvicka@petrzalka.sk" value={email} onChange={e => setEmail(e.target.value)} />
-                </div>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Oddelenie</label>
-                  <input type="text" className="form-input" placeholder="napr. IT" value={department} onChange={e => setDepartment(e.target.value)} />
-                </div>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Dátum nástupu</label>
-                  <input type="date" className="form-input" value={entryDate} onChange={e => setEntryDate(e.target.value)} />
-                </div>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Dátum výstupu</label>
-                  <input type="date" className="form-input" value={exitDate} onChange={e => setExitDate(e.target.value)} />
-                </div>
-              </div>
-              <div className="modal-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
-                <button type="submit" className="btn btn-primary">Uložiť</button>
-                <button type="button" className="btn btn-secondary" onClick={() => {
-                  setShowAddForm(false);
-                  setName('');
-                  setStatus('Aktivovaný');
-                  setEmail('');
-                  setDepartment('');
-                  setEntryDate('');
-                  setExitDate('');
-                }}>Zrušiť</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {showImportModal && (
-        <div className="modal-overlay">
-          <div className="modal-content card" style={{ maxWidth: '850px', animation: 'fadeIn 0.25s ease-out' }}>
-            <div className="modal-header">
-              <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                📥 Import používateľov
-              </h3>
-              <button 
-                className="btn-close" 
-                onClick={() => {
-                  setShowImportModal(false);
+                  setImportMode(false);
                   setImportedUsers([]);
                   setImportGroupIds([]);
                 }}
@@ -671,147 +652,190 @@ export default function UsersTab({ currentUser }) {
                 ✕
               </button>
             </div>
-            
-            <form onSubmit={handleImportSubmit}>
-              {importedUsers.length === 0 ? (
-                <div style={{
-                  border: '2px dashed rgba(255,255,255,0.15)',
-                  borderRadius: 'var(--border-radius-sm)',
-                  padding: '3rem 2rem',
-                  textAlign: 'center',
-                  background: 'rgba(0,0,0,0.1)',
-                  marginBottom: '1.5rem',
-                  position: 'relative',
-                  transition: 'border-color 0.2s, background-color 0.2s'
-                }}>
-                  <input 
-                    type="file" 
-                    accept=".xlsx,.xls,.csv" 
-                    onChange={handleImportFileChange}
-                    style={{
-                      position: 'absolute',
-                      top: 0, left: 0, width: '100%', height: '100%',
-                      opacity: 0, cursor: 'pointer'
-                    }}
-                  />
-                  <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>📥</div>
-                  <div style={{ fontWeight: '600', color: 'white', fontSize: '1.1rem' }}>Pretiahnite Excel (.xlsx, .xls) alebo CSV súbor</div>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.5rem', marginBottom: 0 }}>
-                    alebo kliknite pre prehliadanie súborov z vášho počítača
-                  </p>
+
+            {!importMode ? (
+              <form onSubmit={handleAddSubmit}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem', marginTop: '1rem' }}>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label">Meno užívateľa</label>
+                    <input type="text" className="form-input" placeholder="napr. Ján Mrkvička" value={name} onChange={e => setName(e.target.value)} required />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label">Emailová adresa</label>
+                    <input type="email" className="form-input" placeholder="napr. jan.mrkvicka@petrzalka.sk" value={email} onChange={e => setEmail(e.target.value)} />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label">Oddelenie</label>
+                    <input type="text" className="form-input" placeholder="napr. IT" value={department} onChange={e => setDepartment(e.target.value)} />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label">Dátum nástupu</label>
+                    <input type="date" className="form-input" value={entryDate} onChange={e => setEntryDate(e.target.value)} />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label">Dátum výstupu</label>
+                    <input type="date" className="form-input" value={exitDate} onChange={e => setExitDate(e.target.value)} />
+                  </div>
                 </div>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.9rem', color: 'var(--accent-secondary)', fontWeight: '600' }}>
-                      📋 Náhľad importovaných dát ({importedUsers.length} používateľov)
-                    </span>
-                    <button 
-                      type="button" 
-                      className="btn btn-secondary" 
-                      style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }}
-                      onClick={() => {
-                        setImportedUsers([]);
-                        setImportGroupIds([]);
+                <div className="modal-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
+                  <button type="submit" className="btn btn-primary">Uložiť</button>
+                  <button type="button" className="btn btn-secondary" onClick={() => {
+                    setShowAddForm(false);
+                    setName('');
+                    setStatus('Aktivovaný');
+                    setEmail('');
+                    setDepartment('');
+                    setEntryDate('');
+                    setExitDate('');
+                    setImportMode(false);
+                  }}>Zrušiť</button>
+                </div>
+              </form>
+            ) : (
+              <form onSubmit={handleImportSubmit} style={{ marginTop: '1.5rem' }}>
+                {importedUsers.length === 0 ? (
+                  <div style={{
+                    border: '2px dashed rgba(255,255,255,0.15)',
+                    borderRadius: 'var(--border-radius-sm)',
+                    padding: '3rem 2rem',
+                    textAlign: 'center',
+                    background: 'rgba(0,0,0,0.1)',
+                    marginBottom: '1.5rem',
+                    position: 'relative',
+                    transition: 'border-color 0.2s, background-color 0.2s'
+                  }}>
+                    <input 
+                      type="file" 
+                      accept=".xlsx,.xls,.csv" 
+                      onChange={handleImportFileChange}
+                      style={{
+                        position: 'absolute',
+                        top: 0, left: 0, width: '100%', height: '100%',
+                        opacity: 0, cursor: 'pointer'
                       }}
-                    >
-                      🔄 Vybrať iný súbor
-                    </button>
+                    />
+                    <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>📥</div>
+                    <div style={{ fontWeight: '600', color: 'white', fontSize: '1.1rem' }}>Pretiahnite Excel (.xlsx, .xls) alebo CSV súbor</div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.5rem', marginBottom: 0 }}>
+                      alebo kliknite pre prehliadanie súborov z vášho počítača
+                    </p>
                   </div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.9rem', color: 'var(--accent-secondary)', fontWeight: '600' }}>
+                        📋 Náhľad importovaných dát ({importedUsers.length} používateľov)
+                      </span>
+                      <button 
+                        type="button" 
+                        className="btn btn-secondary" 
+                        style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }}
+                        onClick={() => {
+                          setImportedUsers([]);
+                          setImportGroupIds([]);
+                        }}
+                      >
+                        🔄 Vybrať iný súbor
+                      </button>
+                    </div>
 
-                  <div style={{ maxHeight: '250px', overflowY: 'auto', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', background: 'rgba(0,0,0,0.1)' }}>
-                    <table className="custom-table" style={{ fontSize: '0.85rem' }}>
-                      <thead>
-                        <tr>
-                          <th>Meno</th>
-                          <th>Email</th>
-                          <th>Oddelenie</th>
-                          <th>Nástup</th>
-                          <th>Výstup</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {importedUsers.map((u, idx) => (
-                          <tr key={idx}>
-                            <td><strong>{u.name}</strong></td>
-                            <td>{u.email || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
-                            <td>{u.department || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
-                            <td>{formatDate(u.entry_date)}</td>
-                            <td>{formatDate(u.exit_date)}</td>
+                    <div style={{ maxHeight: '250px', overflowY: 'auto', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', background: 'rgba(0,0,0,0.1)' }}>
+                      <table className="custom-table" style={{ fontSize: '0.85rem' }}>
+                        <thead>
+                          <tr>
+                            <th>Meno</th>
+                            <th>Email</th>
+                            <th>Oddelenie</th>
+                            <th>Nástup</th>
+                            <th>Výstup</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody>
+                          {importedUsers.map((u, idx) => (
+                            <tr key={idx}>
+                              <td><strong>{u.name}</strong></td>
+                              <td>{u.email || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
+                              <td>{u.department || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
+                              <td>{formatDate(u.entry_date)}</td>
+                              <td>{formatDate(u.exit_date)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
 
-                  <div>
-                    <label className="form-label" style={{ marginBottom: '0.6rem', display: 'block', fontWeight: '600' }}>
-                      👥 Priradiť všetkých do prístupových skupín:
-                    </label>
-                    <div style={{ 
-                      display: 'grid', 
-                      gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', 
-                      gap: '0.75rem', 
-                      padding: '1rem', 
-                      background: 'rgba(255,255,255,0.02)', 
-                      border: '1px solid var(--border-color)', 
-                      borderRadius: 'var(--border-radius-sm)' 
-                    }}>
-                      {groups.map(group => (
-                        <label 
-                          key={group.id} 
-                          style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            gap: '0.5rem', 
-                            cursor: 'pointer', 
-                            fontSize: '0.85rem', 
-                            color: importGroupIds.includes(group.id) ? 'white' : 'var(--text-muted)',
-                            fontWeight: importGroupIds.includes(group.id) ? '600' : 'normal'
-                          }}
-                        >
-                          <input 
-                            type="checkbox" 
-                            checked={importGroupIds.includes(group.id)}
-                            style={{ cursor: 'pointer' }}
-                            onChange={e => {
-                              if (e.target.checked) {
-                                setImportGroupIds([...importGroupIds, group.id]);
-                              } else {
-                                setImportGroupIds(importGroupIds.filter(id => id !== group.id));
-                              }
+                    <div>
+                      <label className="form-label" style={{ marginBottom: '0.6rem', display: 'block', fontWeight: '600' }}>
+                        👥 Priradiť všetkých do prístupových skupín:
+                      </label>
+                      <div style={{ 
+                        display: 'grid', 
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', 
+                        gap: '0.75rem', 
+                        padding: '1rem', 
+                        background: 'rgba(255,255,255,0.02)', 
+                        border: '1px solid var(--border-color)', 
+                        borderRadius: 'var(--border-radius-sm)' 
+                      }}>
+                        {groups.map(group => (
+                          <label 
+                            key={group.id} 
+                            style={{ 
+                              display: 'flex', 
+                              alignItems: 'center', 
+                              gap: '0.5rem', 
+                              cursor: 'pointer', 
+                              fontSize: '0.85rem', 
+                              color: importGroupIds.includes(group.id) ? 'white' : 'var(--text-muted)',
+                              fontWeight: importGroupIds.includes(group.id) ? '600' : 'normal'
                             }}
-                          />
-                          <span>👥 {group.name}</span>
-                        </label>
-                      ))}
+                          >
+                            <input 
+                              type="checkbox" 
+                              checked={importGroupIds.includes(group.id)}
+                              style={{ cursor: 'pointer' }}
+                              onChange={e => {
+                                if (e.target.checked) {
+                                  setImportGroupIds([...importGroupIds, group.id]);
+                                } else {
+                                  setImportGroupIds(importGroupIds.filter(id => id !== group.id));
+                                }
+                              }}
+                            />
+                            <span>👥 {group.name}</span>
+                          </label>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-
-              <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', marginTop: '1.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
-                {importedUsers.length > 0 && (
-                  <button type="submit" className="btn btn-primary">
-                    🚀 Potvrdiť import ({importedUsers.length} užívateľov)
-                  </button>
                 )}
-                <button 
-                  type="button" 
-                  className="btn btn-secondary" 
-                  onClick={() => {
-                    setShowImportModal(false);
-                    setImportedUsers([]);
-                    setImportGroupIds([]);
-                  }}
-                >
-                  Zrušiť
-                </button>
-              </div>
-            </form>
+
+                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', marginTop: '1.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
+                  {importedUsers.length > 0 && (
+                    <button type="submit" className="btn btn-primary">
+                      🚀 Potvrdiť import ({importedUsers.length} užívateľov)
+                    </button>
+                  )}
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary" 
+                    onClick={() => {
+                      setShowAddForm(false);
+                      setImportedUsers([]);
+                      setImportGroupIds([]);
+                      setImportMode(false);
+                    }}
+                  >
+                    Zrušiť
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}
+
+
 
       {showEditForm && selectedUser && (
         <div className="modal-overlay">
