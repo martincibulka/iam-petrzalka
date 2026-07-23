@@ -85,7 +85,6 @@ export default function UsersTab({ currentUser }) {
       setError(err.message);
     }
   };
-
   const handleImportFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -113,11 +112,16 @@ export default function UsersTab({ currentUser }) {
             }
           }
         } else {
-          // Parse Excel
-          const workbook = XLSX.read(data, { type: 'binary' });
+          // Parse Excel using ArrayBuffer
+          const workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
           const firstSheetName = workbook.SheetNames[0];
           const worksheet = workbook.Sheets[firstSheetName];
           parsedRows = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+        }
+
+        if (parsedRows.length === 0) {
+          alert('Súbor je prázdny alebo neobsahuje žiadne riadky s dátami.');
+          return;
         }
 
         // Flexible header mapping
@@ -125,7 +129,16 @@ export default function UsersTab({ currentUser }) {
           const mapped = {};
           Object.entries(row).forEach(([key, val]) => {
             const k = key.toLowerCase().trim();
-            if (k === 'meno' || k === 'name' || k === 'full name' || k === 'celé meno') {
+            if (
+              k === 'meno' || 
+              k === 'name' || 
+              k === 'full name' || 
+              k === 'celé meno' || 
+              k === 'meno a priezvisko' || 
+              k === 'používateľ' || 
+              k === 'uzivatel' || 
+              k === 'zamestnanec'
+            ) {
               mapped.name = String(val).trim();
             } else if (k === 'email' || k === 'e-mail' || k === 'mail' || k === 'adresa') {
               mapped.email = String(val).trim();
@@ -140,17 +153,18 @@ export default function UsersTab({ currentUser }) {
           return mapped;
         }).filter(u => u.name && u.name.trim() !== "");
 
+        if (mappedUsers.length === 0) {
+          alert("V súbore sa nenašli žiadni platní používatelia. Uistite sa, že prvý riadok obsahuje hlavičky stĺpcov, najmä stĺpec 'Meno' alebo 'Name'.");
+          return;
+        }
+
         setImportedUsers(mappedUsers);
       } catch (err) {
         alert('Chyba pri čítaní súboru: ' + err.message);
       }
     };
 
-    if (file.name.endsWith('.csv')) {
-      reader.readAsArrayBuffer(file);
-    } else {
-      reader.readAsBinaryString(file);
-    }
+    reader.readAsArrayBuffer(file);
   };
 
   const handleImportSubmit = async (e) => {
