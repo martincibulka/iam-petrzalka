@@ -558,15 +558,24 @@ export default function PermissionsTab({ currentUser }) {
 
           if (isEditing) {
             return (
-              <div key={g.id} className="card" style={{ 
-                display: 'flex', 
-                flexDirection: 'column', 
-                borderColor: 'var(--accent-primary)',
-                background: 'rgba(6, 182, 212, 0.03)',
-                padding: '1.5rem',
-                marginBottom: '0.25rem',
-                animation: 'fadeIn 0.3s ease-out'
-              }}>
+              <div 
+                key={g.id} 
+                className="card" 
+                onClick={(e) => {
+                  if (!e.target.closest('input, select, button, label, .badge')) {
+                    setEditGroupId(null);
+                  }
+                }}
+                style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  borderColor: 'var(--accent-primary)',
+                  background: 'rgba(6, 182, 212, 0.03)',
+                  padding: '1.5rem',
+                  marginBottom: '0.25rem',
+                  animation: 'fadeIn 0.3s ease-out'
+                }}
+              >
                 <h4 style={{ fontSize: '1.1rem', color: 'white', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   ⚙️ Upraviť skupinu: {g.name}
                 </h4>
