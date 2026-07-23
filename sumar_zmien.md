@@ -57,6 +57,7 @@
 - **Oprava pre pouzivatelia.xlsx:** Zanalyzovali sme tvoj importný súbor a upravili mapovanie hlavičiek stĺpcov pre `*givenName (meno)`, `*sn (priezvisko)` (ktoré sa spoja do jedného mena), `*mail` a `*department (oddelenie)`. Zároveň sme pridali konverziu interných číselných formátov dátumov z Excelu na korektné textové dátumy.
 - **Zlúčenie do záložiek (Tabs):** Odstránili sme samostatné tlačidlo importu z hlavného záhlavia. Import z Excelu sme presunuli priamo do okna **Nový užívateľ** vo forme čistých bezrámových záložiek (`Nový užívateľ` a `Import z Excelu/CSV`), ktoré umožňujú plynulé prepínanie režimov zadávania priamo v jednom okne.
 - **Fialový dizajn záložiek:** Obe záložky v hlavičke okna sme zafarbili na fialovú farbu brandu (`var(--accent-primary)`). Aktívny stav má plnú fialovú a neaktívny 40% priehľadnú fialovú. Plus symbol sme premenili na textový symbol `+` vo fialovej farbe.
+- **Zarovnanie záložiek:** Nastavili sme šírku prvej záložky na **236px** a odstránili medzeru kontajnera, vďaka čomu druhá záložka (*Import z Excelu/CSV*) začína presne nad stĺpcom **Emailová adresa** pre perfektné dizajnové zarovnanie.
 
 ---
-**Aktuálna verzia projektu:** `23.07.2026.12.45`
+**Aktuálna verzia projektu:** `23.07.2026.12.48`
