@@ -591,28 +591,29 @@ export default function UsersTab({ currentUser }) {
           <div className="modal-content card" style={{ maxWidth: importMode ? '850px' : '750px', transition: 'max-width 0.25s ease-in-out', animation: 'fadeIn 0.25s ease-out' }}>
             <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <span 
-                  onClick={() => {
-                    setImportMode(false);
-                    setImportedUsers([]);
-                    setImportGroupIds([]);
-                  }}
-                  style={{ 
-                    width: '236px',
-                    fontSize: '1.25rem', 
-                    fontWeight: 'bold', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '0.4rem', 
-                    cursor: 'pointer',
-                    color: !importMode ? 'var(--accent-primary)' : 'rgba(139, 92, 246, 0.4)',
-                    borderBottom: !importMode ? '2px solid var(--accent-primary)' : '2px solid transparent',
-                    paddingBottom: '0.25rem',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  <span style={{ color: 'var(--accent-primary)', marginRight: '0.1rem' }}>+</span> Nový užívateľ
-                </span>
+                <div style={{ width: '236px', display: 'flex' }}>
+                  <span 
+                    onClick={() => {
+                      setImportMode(false);
+                      setImportedUsers([]);
+                      setImportGroupIds([]);
+                    }}
+                    style={{ 
+                      fontSize: '1.25rem', 
+                      fontWeight: 'bold', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '0.4rem', 
+                      cursor: 'pointer',
+                      color: !importMode ? 'var(--accent-primary)' : 'rgba(139, 92, 246, 0.4)',
+                      borderBottom: !importMode ? '2px solid var(--accent-primary)' : '2px solid transparent',
+                      paddingBottom: '0.25rem',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    <span style={{ color: 'var(--accent-primary)', marginRight: '0.1rem' }}>+</span> Nový užívateľ
+                  </span>
+                </div>
                 <span 
                   onClick={() => {
                     setImportMode(true);
