@@ -308,7 +308,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
                   </div>
                 </div>
                 <span className={`badge ${selectedUser.status === 'Aktivovaný' ? 'badge-active' : 'badge-blocked'}`}>
-                  {selectedUser.status}
+                  {selectedUser.status === 'Aktivovaný' ? 'Aktívny' : 'Neaktívny'}
                 </span>
               </div>
 
