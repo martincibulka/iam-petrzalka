@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as XLSX from 'xlsx';
 
 const formatDate = (dateStr) => {
   if (!dateStr) return '—';
@@ -28,6 +29,11 @@ export default function UsersTab({ currentUser }) {
   const [tempUserGroupIds, setTempUserGroupIds] = useState([]);
   const [tempUserSystems, setTempUserSystems] = useState([]);
   const [accessItems, setAccessItems] = useState([]);
+
+  // Import State
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importedUsers, setImportedUsers] = useState([]);
+  const [importGroupIds, setImportGroupIds] = useState([]);
 
   const toggleUserExpand = (userId) => {
     if (expandedUsers.includes(userId)) {
@@ -77,6 +83,106 @@ export default function UsersTab({ currentUser }) {
       setManageAccessUser(null);
     } catch (err) {
       setError(err.message);
+    }
+  };
+
+  const handleImportFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const data = evt.target.result;
+        let parsedRows = [];
+
+        if (file.name.endsWith('.csv')) {
+          // Parse CSV
+          const text = new TextDecoder('utf-8').decode(data);
+          const lines = text.split(/\r?\n/);
+          if (lines.length > 0) {
+            const headers = lines[0].split(',').map(h => h.replace(/^["']|["']$/g, '').trim());
+            for (let i = 1; i < lines.length; i++) {
+              if (!lines[i].trim()) continue;
+              const values = lines[i].split(',').map(v => v.replace(/^["']|["']$/g, '').trim());
+              const row = {};
+              headers.forEach((h, idx) => {
+                row[h] = values[idx] || '';
+              });
+              parsedRows.push(row);
+            }
+          }
+        } else {
+          // Parse Excel
+          const workbook = XLSX.read(data, { type: 'binary' });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          parsedRows = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+        }
+
+        // Flexible header mapping
+        const mappedUsers = parsedRows.map(row => {
+          const mapped = {};
+          Object.entries(row).forEach(([key, val]) => {
+            const k = key.toLowerCase().trim();
+            if (k === 'meno' || k === 'name' || k === 'full name' || k === 'celé meno') {
+              mapped.name = String(val).trim();
+            } else if (k === 'email' || k === 'e-mail' || k === 'mail' || k === 'adresa') {
+              mapped.email = String(val).trim();
+            } else if (k === 'oddelenie' || k === 'department' || k === 'sekcia' || k === 'odbor') {
+              mapped.department = String(val).trim();
+            } else if (k === 'dátum nástupu' || k === 'nástup' || k === 'entry date' || k === 'datum nastupu' || k === 'entry_date') {
+              mapped.entry_date = String(val).trim();
+            } else if (k === 'dátum výstupu' || k === 'výstup' || k === 'exit date' || k === 'datum vystupu' || k === 'exit_date') {
+              mapped.exit_date = String(val).trim();
+            }
+          });
+          return mapped;
+        }).filter(u => u.name && u.name.trim() !== "");
+
+        setImportedUsers(mappedUsers);
+      } catch (err) {
+        alert('Chyba pri čítaní súboru: ' + err.message);
+      }
+    };
+
+    if (file.name.endsWith('.csv')) {
+      reader.readAsArrayBuffer(file);
+    } else {
+      reader.readAsBinaryString(file);
+    }
+  };
+
+  const handleImportSubmit = async (e) => {
+    e.preventDefault();
+    if (importedUsers.length === 0) {
+      alert('Žiadni používatelia na import.');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/users/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          users: importedUsers,
+          groupIds: importGroupIds
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Chyba pri hromadnom importe.');
+      }
+
+      setUsers(data.users);
+      setUserGroups(data.userGroups);
+      setShowImportModal(false);
+      setImportedUsers([]);
+      setImportGroupIds([]);
+      
+      alert(`Úspešne naimportovaných ${importedUsers.length} používateľov.`);
+    } catch (err) {
+      alert(err.message);
     }
   };
 
@@ -406,18 +512,27 @@ export default function UsersTab({ currentUser }) {
           <p className="page-subtitle">Správa užívateľských účtov a ich prístupových rolí</p>
         </div>
         {userPerm === 'Zápis' && (
-          <button className="btn btn-primary" onClick={() => { 
-            setShowEditForm(false); 
-            setShowAddForm(!showAddForm); 
-            setName('');
-            setStatus('Aktivovaný');
-            setEmail('');
-            setDepartment('');
-            setEntryDate('');
-            setExitDate('');
-          }}>
-            {showAddForm ? 'Zrušiť' : '➕ Pridať užívateľa'}
-          </button>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button className="btn btn-primary" onClick={() => { 
+              setShowEditForm(false); 
+              setShowAddForm(!showAddForm); 
+              setName('');
+              setStatus('Aktivovaný');
+              setEmail('');
+              setDepartment('');
+              setEntryDate('');
+              setExitDate('');
+            }}>
+              {showAddForm ? 'Zrušiť' : '➕ Nový užívateľ'}
+            </button>
+            <button className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }} onClick={() => {
+              setShowImportModal(true);
+              setImportedUsers([]);
+              setImportGroupIds([]);
+            }}>
+              📥 Import používateľov
+            </button>
+          </div>
         )}
       </div>
 
@@ -479,6 +594,166 @@ export default function UsersTab({ currentUser }) {
                   setEntryDate('');
                   setExitDate('');
                 }}>Zrušiť</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showImportModal && (
+        <div className="modal-overlay">
+          <div className="modal-content card" style={{ maxWidth: '850px', animation: 'fadeIn 0.25s ease-out' }}>
+            <div className="modal-header">
+              <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                📥 Import používateľov
+              </h3>
+              <button 
+                className="btn-close" 
+                onClick={() => {
+                  setShowImportModal(false);
+                  setImportedUsers([]);
+                  setImportGroupIds([]);
+                }}
+              >
+                ✕
+              </button>
+            </div>
+            
+            <form onSubmit={handleImportSubmit}>
+              {importedUsers.length === 0 ? (
+                <div style={{
+                  border: '2px dashed rgba(255,255,255,0.15)',
+                  borderRadius: 'var(--border-radius-sm)',
+                  padding: '3rem 2rem',
+                  textAlign: 'center',
+                  background: 'rgba(0,0,0,0.1)',
+                  marginBottom: '1.5rem',
+                  position: 'relative',
+                  transition: 'border-color 0.2s, background-color 0.2s'
+                }}>
+                  <input 
+                    type="file" 
+                    accept=".xlsx,.xls,.csv" 
+                    onChange={handleImportFileChange}
+                    style={{
+                      position: 'absolute',
+                      top: 0, left: 0, width: '100%', height: '100%',
+                      opacity: 0, cursor: 'pointer'
+                    }}
+                  />
+                  <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>📥</div>
+                  <div style={{ fontWeight: '600', color: 'white', fontSize: '1.1rem' }}>Pretiahnite Excel (.xlsx, .xls) alebo CSV súbor</div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.5rem', marginBottom: 0 }}>
+                    alebo kliknite pre prehliadanie súborov z vášho počítača
+                  </p>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--accent-secondary)', fontWeight: '600' }}>
+                      📋 Náhľad importovaných dát ({importedUsers.length} používateľov)
+                    </span>
+                    <button 
+                      type="button" 
+                      className="btn btn-secondary" 
+                      style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }}
+                      onClick={() => {
+                        setImportedUsers([]);
+                        setImportGroupIds([]);
+                      }}
+                    >
+                      🔄 Vybrať iný súbor
+                    </button>
+                  </div>
+
+                  <div style={{ maxHeight: '250px', overflowY: 'auto', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-sm)', background: 'rgba(0,0,0,0.1)' }}>
+                    <table className="custom-table" style={{ fontSize: '0.85rem' }}>
+                      <thead>
+                        <tr>
+                          <th>Meno</th>
+                          <th>Email</th>
+                          <th>Oddelenie</th>
+                          <th>Nástup</th>
+                          <th>Výstup</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {importedUsers.map((u, idx) => (
+                          <tr key={idx}>
+                            <td><strong>{u.name}</strong></td>
+                            <td>{u.email || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
+                            <td>{u.department || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
+                            <td>{formatDate(u.entry_date)}</td>
+                            <td>{formatDate(u.exit_date)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div>
+                    <label className="form-label" style={{ marginBottom: '0.6rem', display: 'block', fontWeight: '600' }}>
+                      👥 Priradiť všetkých do prístupových skupín:
+                    </label>
+                    <div style={{ 
+                      display: 'grid', 
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', 
+                      gap: '0.75rem', 
+                      padding: '1rem', 
+                      background: 'rgba(255,255,255,0.02)', 
+                      border: '1px solid var(--border-color)', 
+                      borderRadius: 'var(--border-radius-sm)' 
+                    }}>
+                      {groups.map(group => (
+                        <label 
+                          key={group.id} 
+                          style={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            gap: '0.5rem', 
+                            cursor: 'pointer', 
+                            fontSize: '0.85rem', 
+                            color: importGroupIds.includes(group.id) ? 'white' : 'var(--text-muted)',
+                            fontWeight: importGroupIds.includes(group.id) ? '600' : 'normal'
+                          }}
+                        >
+                          <input 
+                            type="checkbox" 
+                            checked={importGroupIds.includes(group.id)}
+                            style={{ cursor: 'pointer' }}
+                            onChange={e => {
+                              if (e.target.checked) {
+                                setImportGroupIds([...importGroupIds, group.id]);
+                              } else {
+                                setImportGroupIds(importGroupIds.filter(id => id !== group.id));
+                              }
+                            }}
+                          />
+                          <span>👥 {group.name}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', marginTop: '1.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
+                {importedUsers.length > 0 && (
+                  <button type="submit" className="btn btn-primary">
+                    🚀 Potvrdiť import ({importedUsers.length} užívateľov)
+                  </button>
+                )}
+                <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  onClick={() => {
+                    setShowImportModal(false);
+                    setImportedUsers([]);
+                    setImportGroupIds([]);
+                  }}
+                >
+                  Zrušiť
+                </button>
               </div>
             </form>
           </div>

@@ -579,6 +579,93 @@ app.put('/api/users/:id', requireAuth, (req, res) => {
   }
 });
 
+app.post('/api/users/import', requireAuth, requirePermission('user_management', 'Zápis'), (req, res) => {
+  const { users, groupIds } = req.body;
+
+  if (!users || !Array.isArray(users) || users.length === 0) {
+    return res.status(400).json({ message: 'Žiadne dáta na import.' });
+  }
+
+  const db = readDb();
+  const timestamp = Date.now();
+  let createdCount = 0;
+
+  users.forEach((u, index) => {
+    if (!u.name || !u.name.trim()) return;
+
+    // Generate unique username
+    const cleanName = u.name.trim().toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
+      .replace(/[^a-z0-9\s.]/g, '') // keep alphanum, spaces, dots
+      .trim();
+    const nameParts = cleanName.split(/\s+/);
+    let baseUsername = nameParts.length >= 2 
+      ? `${nameParts[0]}.${nameParts.slice(1).join('.')}` 
+      : nameParts[0];
+
+    // Ensure username is unique in database
+    let finalUsername = baseUsername;
+    let counter = 1;
+    while (db.users.some(usr => usr.username === finalUsername)) {
+      finalUsername = `${baseUsername}${counter}`;
+      counter++;
+    }
+
+    const newUser = {
+      id: `user-${timestamp}-${index}-${Math.random().toString(36).slice(2, 6)}`,
+      username: finalUsername,
+      password: '',
+      name: u.name.trim(),
+      role: 'user',
+      status: 'Aktivovaný',
+      email: u.email ? u.email.trim() : '',
+      department: u.department ? u.department.trim() : '',
+      entry_date: u.entry_date ? u.entry_date.trim() : '',
+      exit_date: u.exit_date ? u.exit_date.trim() : '',
+      systems: [],
+      created_at: new Date().toISOString()
+    };
+
+    db.users.push(newUser);
+    createdCount++;
+
+    // Assign to groups if specified
+    if (groupIds && Array.isArray(groupIds) && groupIds.length > 0) {
+      if (!db.userGroups) {
+        db.userGroups = [];
+      }
+      let mappingIndex = db.userGroups.findIndex(ug => ug.userId === newUser.id);
+      if (mappingIndex === -1) {
+        db.userGroups.push({
+          userId: newUser.id,
+          groupIds: [...groupIds]
+        });
+      } else {
+        db.userGroups[mappingIndex].groupIds = Array.from(new Set([...db.userGroups[mappingIndex].groupIds, ...groupIds]));
+      }
+    }
+  });
+
+  writeDb(db);
+
+  if (createdCount > 0) {
+    logAction(
+      req.session.user.username,
+      'Hromadný import užívateľov',
+      `Úspešne naimportovaných ${createdCount} užívateľov.`
+    );
+  }
+
+  // Return the regular users and user groups list
+  const regularUsers = db.users.filter(u => !isIamUser(u));
+  const safeUsers = regularUsers.map(({ password: _, ...usr }) => usr);
+  
+  res.json({
+    users: safeUsers,
+    userGroups: db.userGroups || []
+  });
+});
+
 app.delete('/api/users/:id', requireAuth, requirePermission('user_management', 'Zápis'), (req, res) => {
   const { id } = req.params;
   

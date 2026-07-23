@@ -48,5 +48,12 @@
 - **Unifikovaná výška:** V stave náhľadu majú teraz všetky karty rovnakú výšku **96px**.
 - **Vertikálny posuvník:** Priradené prístupy sú obmedzené na maximálne 2 riadky (52px). Pri väčšom počte sa zobrazí vertikálny posuvník, čo zabraňuje skákaniu a zmene výšok kariet v zozname.
 
+## 4. Hromadný import používateľov z Excelu a CSV
+- **UI tlačidlá:** Pridali sme tlačidlo **📥 Import používateľov** hneď vedľa premenovaného tlačidla **➕ Nový užívateľ**.
+- **Modálne okno a drag & drop:** Vytvorili sme dedikované okno pre pretiahnutie alebo vybratie súboru (`.xlsx`, `.xls`, `.csv`).
+- **Náhľadová tabuľka pred uložením:** Načítané dáta z tabuľky sa najskôr zobrazia v prehľadnej tabuľke (Meno, Email, Oddelenie, Nástup, Výstup), čo umožňuje vizuálnu kontrolu pred zápisom.
+- **Hromadné priradenie prístupov:** Pri importe je možné označiť ľubovoľné prístupové skupiny (napr. *Trimel*, *AD*), do ktorých budú všetci naimportovaní užívatelia automaticky zaradení.
+- **Dávkový zápis a generovanie mien:** Backendový endpoint `POST /api/users/import` spracuje používateľov naraz, automaticky z ich mena vygeneruje unikátne prihlasovacie mená (napr. `martin.cibulka`), priradí skupiny a zapíše log o importe.
+
 ---
-**Aktuálna verzia projektu:** `23.07.2026.12.18`
+**Aktuálna verzia projektu:** `23.07.2026.12.25`

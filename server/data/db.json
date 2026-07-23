@@ -50,7 +50,7 @@
       "password": "",
       "name": "Richard Makovica",
       "role": "user",
-      "status": "Zablokovaný",
+      "status": "Aktivovaný",
       "created_at": "2026-07-06T14:52:21.848Z",
       "email": "richard.makovica@petrzalka.sk",
       "department": "Referát IT",
@@ -68,6 +68,13 @@
     }
   ],
   "logs": [
+    {
+      "id": "log-1784802022418-re0dm14ga",
+      "timestamp": "2026-07-23T10:20:22.418Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Richard Makovica (user_1783349541848). Detaily: Zmena stavu: \"Zablokovaný\" -> \"Aktivovaný\""
+    },
     {
       "id": "log-1784800270898-wn40r6in8",
       "timestamp": "2026-07-23T09:51:10.899Z",
