@@ -694,36 +694,40 @@ export default function UsersTab({ currentUser }) {
                 </div>
               </form>
             ) : (
-              <form onSubmit={handleImportSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1, marginTop: '1.5rem' }}>
+              <form onSubmit={handleImportSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 {importedUsers.length === 0 ? (
-                  <div style={{
-                    border: '2px dashed rgba(255,255,255,0.15)',
-                    borderRadius: 'var(--border-radius-sm)',
-                    padding: '3rem 2rem',
-                    textAlign: 'center',
-                    background: 'rgba(0,0,0,0.1)',
-                    marginBottom: '1.5rem',
-                    position: 'relative',
-                    transition: 'border-color 0.2s, background-color 0.2s'
-                  }}>
-                    <input 
-                      type="file" 
-                      accept=".xlsx,.xls,.csv" 
-                      onChange={handleImportFileChange}
-                      style={{
-                        position: 'absolute',
-                        top: 0, left: 0, width: '100%', height: '100%',
-                        opacity: 0, cursor: 'pointer'
-                      }}
-                    />
-                    <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>📥</div>
-                    <div style={{ fontWeight: '600', color: 'white', fontSize: '1.1rem' }}>Pretiahnite Excel (.xlsx, .xls) alebo CSV súbor</div>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.5rem', marginBottom: 0 }}>
-                      alebo kliknite pre prehliadanie súborov z vášho počítača
-                    </p>
+                  <div style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
+                    <div style={{
+                      border: '2px dashed rgba(255,255,255,0.15)',
+                      borderRadius: 'var(--border-radius-sm)',
+                      height: '152px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      background: 'rgba(0,0,0,0.1)',
+                      position: 'relative',
+                      transition: 'border-color 0.2s, background-color 0.2s'
+                    }}>
+                      <input 
+                        type="file" 
+                        accept=".xlsx,.xls,.csv" 
+                        onChange={handleImportFileChange}
+                        style={{
+                          position: 'absolute',
+                          top: 0, left: 0, width: '100%', height: '100%',
+                          opacity: 0, cursor: 'pointer'
+                        }}
+                      />
+                      <div style={{ fontSize: '2.2rem', marginBottom: '0.4rem' }}>📥</div>
+                      <div style={{ fontWeight: '600', color: 'white', fontSize: '1rem' }}>Pretiahnite Excel (.xlsx, .xls) alebo CSV súbor</div>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.2rem', marginBottom: 0 }}>
+                        alebo kliknite pre prehliadanie súborov z vášho počítača
+                      </p>
+                    </div>
                   </div>
                 ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1rem', marginBottom: '1.5rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontSize: '0.9rem', color: 'var(--accent-secondary)', fontWeight: '600' }}>
                         📋 Náhľad importovaných dát ({importedUsers.length} používateľov)
