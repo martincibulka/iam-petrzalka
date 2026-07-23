@@ -588,7 +588,7 @@ export default function UsersTab({ currentUser }) {
 
       {showAddForm && (
         <div className="modal-overlay">
-          <div className="modal-content card" style={{ width: '750px', maxWidth: '95vw', animation: 'fadeIn 0.25s ease-out' }}>
+          <div className="modal-content card" style={{ width: '750px', maxWidth: '95vw', minHeight: '390px', display: 'flex', flexDirection: 'column', animation: 'fadeIn 0.25s ease-out' }}>
             <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ width: '236px', display: 'flex' }}>
@@ -656,7 +656,7 @@ export default function UsersTab({ currentUser }) {
             </div>
 
             {!importMode ? (
-              <form onSubmit={handleAddSubmit}>
+              <form onSubmit={handleAddSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem', marginTop: '1rem' }}>
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Meno užívateľa</label>
@@ -679,7 +679,7 @@ export default function UsersTab({ currentUser }) {
                     <input type="date" className="form-input" value={exitDate} onChange={e => setExitDate(e.target.value)} />
                   </div>
                 </div>
-                <div className="modal-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
+                <div className="modal-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem', marginTop: 'auto' }}>
                   <button type="submit" className="btn btn-primary">Uložiť</button>
                   <button type="button" className="btn btn-secondary" onClick={() => {
                     setShowAddForm(false);
@@ -694,7 +694,7 @@ export default function UsersTab({ currentUser }) {
                 </div>
               </form>
             ) : (
-              <form onSubmit={handleImportSubmit} style={{ marginTop: '1.5rem' }}>
+              <form onSubmit={handleImportSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1, marginTop: '1.5rem' }}>
                 {importedUsers.length === 0 ? (
                   <div style={{
                     border: '2px dashed rgba(255,255,255,0.15)',
@@ -812,7 +812,7 @@ export default function UsersTab({ currentUser }) {
                   </div>
                 )}
 
-                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', marginTop: '1.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
                   {importedUsers.length > 0 && (
                     <button type="submit" className="btn btn-primary">
                       🚀 Potvrdiť import ({importedUsers.length} užívateľov)
