@@ -590,7 +590,7 @@ export default function UsersTab({ currentUser }) {
         <div className="modal-overlay">
           <div className="modal-content card" style={{ maxWidth: importMode ? '850px' : '750px', transition: 'max-width 0.25s ease-in-out', animation: 'fadeIn 0.25s ease-out' }}>
             <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span 
                   onClick={() => {
                     setImportMode(false);
@@ -598,6 +598,7 @@ export default function UsersTab({ currentUser }) {
                     setImportGroupIds([]);
                   }}
                   style={{ 
+                    width: '236px',
                     fontSize: '1.25rem', 
                     fontWeight: 'bold', 
                     display: 'flex', 
