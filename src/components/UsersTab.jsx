@@ -602,15 +602,15 @@ export default function UsersTab({ currentUser }) {
                     fontWeight: 'bold', 
                     display: 'flex', 
                     alignItems: 'center', 
-                    gap: '0.5rem', 
+                    gap: '0.4rem', 
                     cursor: 'pointer',
-                    color: !importMode ? 'white' : 'var(--text-muted)',
+                    color: !importMode ? 'var(--accent-primary)' : 'rgba(139, 92, 246, 0.4)',
                     borderBottom: !importMode ? '2px solid var(--accent-primary)' : '2px solid transparent',
                     paddingBottom: '0.25rem',
                     transition: 'all 0.2s'
                   }}
                 >
-                  ➕ Nový užívateľ
+                  <span style={{ color: 'var(--accent-primary)', marginRight: '0.1rem' }}>+</span> Nový užívateľ
                 </span>
                 <span 
                   onClick={() => {
@@ -623,15 +623,15 @@ export default function UsersTab({ currentUser }) {
                     fontWeight: 'bold', 
                     display: 'flex', 
                     alignItems: 'center', 
-                    gap: '0.5rem', 
+                    gap: '0.4rem', 
                     cursor: 'pointer',
-                    color: importMode ? 'white' : 'var(--text-muted)',
+                    color: importMode ? 'var(--accent-primary)' : 'rgba(139, 92, 246, 0.4)',
                     borderBottom: importMode ? '2px solid var(--accent-primary)' : '2px solid transparent',
                     paddingBottom: '0.25rem',
                     transition: 'all 0.2s'
                   }}
                 >
-                  📥 Import z Excelu/CSV
+                  <span style={{ color: importMode ? 'var(--accent-primary)' : 'rgba(139, 92, 246, 0.4)', marginRight: '0.1rem' }}>📥</span> Import z Excelu/CSV
                 </span>
               </div>
               <button 
