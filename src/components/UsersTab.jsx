@@ -588,7 +588,7 @@ export default function UsersTab({ currentUser }) {
 
       {showAddForm && (
         <div className="modal-overlay">
-          <div className="modal-content card" style={{ maxWidth: '750px', animation: 'fadeIn 0.25s ease-out' }}>
+          <div className="modal-content card" style={{ width: '750px', maxWidth: '95vw', animation: 'fadeIn 0.25s ease-out' }}>
             <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ width: '236px', display: 'flex' }}>
