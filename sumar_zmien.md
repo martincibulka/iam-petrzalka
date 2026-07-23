@@ -56,6 +56,7 @@
 - **Dávkový zápis a generovanie mien:** Backendový endpoint `POST /api/users/import` spracuje používateľov naraz, automaticky z ich mena vygeneruje unikátne prihlasovacie mená (napr. `martin.cibulka`), priradí skupiny a zapíše log o importe.
 - **Oprava pre pouzivatelia.xlsx:** Zanalyzovali sme tvoj importný súbor a upravili mapovanie hlavičiek stĺpcov pre `*givenName (meno)`, `*sn (priezvisko)` (ktoré sa spoja do jedného mena), `*mail` a `*department (oddelenie)`. Zároveň sme pridali konverziu interných číselných formátov dátumov z Excelu na korektné textové dátumy.
 - **Zlúčenie do záložiek (Tabs):** Odstránili sme samostatné tlačidlo importu z hlavného záhlavia. Import z Excelu sme presunuli priamo do okna **Nový užívateľ** vo forme čistých bezrámových záložiek (`Nový užívateľ` a `Import z Excelu/CSV`), ktoré umožňujú plynulé prepínanie režimov zadávania priamo v jednom okne.
+- **Fialový dizajn záložiek:** Obe záložky v hlavičke okna sme zafarbili na fialovú farbu brandu (`var(--accent-primary)`). Aktívny stav má plnú fialovú a neaktívny 40% priehľadnú fialovú. Plus symbol sme premenili na textový symbol `+` vo fialovej farbe.
 
 ---
-**Aktuálna verzia projektu:** `23.07.2026.12.40`
+**Aktuálna verzia projektu:** `23.07.2026.12.45`
