@@ -63,6 +63,10 @@
 - **Zjednotenie výšky okna:** Nastavili sme minimálnu výšku okna `minHeight: '390px'` a prerobili oba formuláre na flexboxy s ukotveným spodným panelom (`marginTop: 'auto'`). Okno importu má teraz pred nahratím súboru identickú výšku ako ručný formulár a prepínanie je vizuálne dokonale stabilné.
 - **Pixelovo presná výška dropzone:** Zafixovali sme výšku samotnej importnej drag & drop zóny a mriežky vstupných polí v manuálnom formulári zhodne na presných **168px**. Tým sme eliminovali aj ten najmenší (pár pixelový) rozdiel vo výške spôsobený rozdielnym line-height fontu a okno je teraz pri prepínaní úplne nehybné.
 - **Štýlové SVG šípky namiesto emoji:** Nahradili sme emoji `📥` v hlavičke záložky a v drag & drop zóne za čisté vektorové SVG šípky smerom dole. V hlavičke preberá šípka automaticky farbu textu (fialovú/polo-priehľadnú fialovú) a v zóne má plnú fialovú farbu brandu.
+- **Hierarchická Správa oddelení:** Implementovali sme kompletne nový modul a rozhranie pre správu organizačnej stromovej štruktúry oddelení (so zbaľovaním a rozbaľovaním vetiev).
+- **Zákaz voľného textu a dropdown integrácia:** Zrušili sme textové zadávanie oddelenia u používateľov a nahradili ho výberovým zoznamom (`<select>`), ktorý hierarchicky vykresľuje číselník oddelení.
+- **Automatická migrácia databázy:** Pri starte servera sa existujúce textové oddelenia automaticky vytvorili v novom číselníku `departments` ako položky a používateľom sa namiesto textu priradili príslušné ID.
+- **Excel auto-create oddelení:** Pri nahrávaní súboru náhľad zvýrazní nové oddelenia a po schválení importu ich server automaticky zapíše do číselníka, čím sa zabezpečuje konzistencia dát.
 
 ---
-**Aktuálna verzia projektu:** `23.07.2026.13.45`
+**Aktuálna verzia projektu:** `23.07.2026.14.15`
