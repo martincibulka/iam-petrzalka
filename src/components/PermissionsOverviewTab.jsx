@@ -6,6 +6,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
   const [groups, setGroups] = useState([]);
   const [userGroups, setUserGroups] = useState([]);
   const [accessItems, setAccessItems] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
@@ -17,14 +18,15 @@ export default function PermissionsOverviewTab({ currentUser }) {
     setLoading(true);
     setError('');
     try {
-      const [usersRes, groupsRes, userGroupsRes, accessItemsRes] = await Promise.all([
+      const [usersRes, groupsRes, userGroupsRes, accessItemsRes, deptsRes] = await Promise.all([
         fetch('/api/users'),
         fetch('/api/groups'),
         fetch('/api/user-groups'),
-        fetch('/api/access-items')
+        fetch('/api/access-items'),
+        fetch('/api/departments')
       ]);
 
-      if (!usersRes.ok || !groupsRes.ok || !userGroupsRes.ok || !accessItemsRes.ok) {
+      if (!usersRes.ok || !groupsRes.ok || !userGroupsRes.ok || !accessItemsRes.ok || !deptsRes.ok) {
         throw new Error('Nepodarilo sa načítať dáta pre prehľad oprávnení.');
       }
 
@@ -32,11 +34,13 @@ export default function PermissionsOverviewTab({ currentUser }) {
       const groupsData = await groupsRes.json();
       const userGroupsData = await userGroupsRes.json();
       const accessItemsData = await accessItemsRes.json();
+      const deptsData = await deptsRes.json();
 
       setUsers(usersData);
       setGroups(groupsData);
       setUserGroups(userGroupsData);
       setAccessItems(accessItemsData);
+      setDepartments(deptsData);
 
       if (usersData.length > 0 && !selectedUserId) {
         setSelectedUserId(usersData[0].id);
@@ -54,6 +58,12 @@ export default function PermissionsOverviewTab({ currentUser }) {
   useEffect(() => {
     fetchData();
   }, [currentUser]);
+
+  const getDeptName = (deptIdOrName) => {
+    if (!deptIdOrName) return 'Bez oddelenia';
+    const dept = departments.find(d => d.id === deptIdOrName);
+    return dept ? dept.name : deptIdOrName;
+  };
 
   // Compute effective accesses for a specific user
   const getEffectiveAccessesForUser = (user) => {
@@ -138,7 +148,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
   const filteredUsers = users.filter(u => 
     u.name.toLowerCase().includes(filterQuery.toLowerCase()) ||
     (u.email && u.email.toLowerCase().includes(filterQuery.toLowerCase())) ||
-    (u.department && u.department.toLowerCase().includes(filterQuery.toLowerCase()))
+    (u.department && getDeptName(u.department).toLowerCase().includes(filterQuery.toLowerCase()))
   );
 
   const filteredAccesses = accessItems.filter(a =>
@@ -230,7 +240,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
                               {user.name}
                             </div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                              {user.department || 'Bez oddelenia'}
+                              {getDeptName(user.department)}
                             </div>
                           </div>
                         </div>
@@ -304,7 +314,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
                   <h3 style={{ margin: 0, color: 'white', fontSize: '1.4rem' }}>{selectedUser.name}</h3>
                   <div style={{ display: 'flex', gap: '1rem', marginTop: '0.35rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                     {selectedUser.email && <span>✉️ {selectedUser.email}</span>}
-                    {selectedUser.department && <span>🏢 {selectedUser.department}</span>}
+                    {selectedUser.department && <span>🏢 {getDeptName(selectedUser.department)}</span>}
                   </div>
                 </div>
                 <span className={`badge ${selectedUser.status === 'Aktivovaný' ? 'badge-active' : 'badge-blocked'}`}>
@@ -452,7 +462,7 @@ export default function PermissionsOverviewTab({ currentUser }) {
                                   {user.name}
                                 </div>
                                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
-                                  {user.department || 'Bez oddelenia'} • Zdroj: <span style={{ color: 'var(--accent-secondary)' }}>{sources.join(', ')}</span>
+                                  {getDeptName(user.department)} • Zdroj: <span style={{ color: 'var(--accent-secondary)' }}>{sources.join(', ')}</span>
                                 </div>
                               </div>
                             </div>

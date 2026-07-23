@@ -118,6 +118,7 @@ function initDb() {
           details: 'Vytvorenie počiatočných skupín prístupov a priradení.'
         }
       ],
+      departments: [],
       sessions: {}
     };
     fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
@@ -166,6 +167,36 @@ function initDb() {
           { id: 'trimel', name: 'Trimel', levels: ['USER', 'Read only'] }
         ];
         changed = true;
+      }
+      if (!data.departments) {
+        data.departments = [];
+        changed = true;
+      }
+
+      // Migrate existing users' free text departments to číselník departments
+      if (data.users && data.users.length > 0) {
+        data.users.forEach(user => {
+          if (user.department && typeof user.department === 'string' && user.department.trim() !== '') {
+            const deptName = user.department.trim();
+            // Check if this department is already in departments (either as ID or by name case-insensitive)
+            let existingDept = data.departments.find(d => d.id === deptName || d.name.toLowerCase() === deptName.toLowerCase());
+            if (!existingDept) {
+              const newId = `dept-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+              existingDept = {
+                id: newId,
+                name: deptName,
+                parentId: null
+              };
+              data.departments.push(existingDept);
+              changed = true;
+            }
+            // Update the user's department property to the ID
+            if (user.department !== existingDept.id) {
+              user.department = existingDept.id;
+              changed = true;
+            }
+          }
+        });
       }
 
       if (changed) {

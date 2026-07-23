@@ -611,6 +611,24 @@ app.post('/api/users/import', requireAuth, requirePermission('user_management', 
       counter++;
     }
 
+    let userDeptId = '';
+    if (u.department && typeof u.department === 'string' && u.department.trim() !== '') {
+      const deptName = u.department.trim();
+      if (!db.departments) db.departments = [];
+      
+      let existingDept = db.departments.find(d => d.name.toLowerCase() === deptName.toLowerCase());
+      if (!existingDept) {
+        const newDeptId = `dept-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+        existingDept = {
+          id: newDeptId,
+          name: deptName,
+          parentId: null
+        };
+        db.departments.push(existingDept);
+      }
+      userDeptId = existingDept.id;
+    }
+
     const newUser = {
       id: `user-${timestamp}-${index}-${Math.random().toString(36).slice(2, 6)}`,
       username: finalUsername,
@@ -619,7 +637,7 @@ app.post('/api/users/import', requireAuth, requirePermission('user_management', 
       role: 'user',
       status: 'Aktivovaný',
       email: u.email ? u.email.trim() : '',
-      department: u.department ? u.department.trim() : '',
+      department: userDeptId,
       entry_date: u.entry_date ? u.entry_date.trim() : '',
       exit_date: u.exit_date ? u.exit_date.trim() : '',
       systems: [],
@@ -698,6 +716,94 @@ app.delete('/api/users/:id', requireAuth, requirePermission('user_management', '
   const regularUsers = db.users.filter(u => !isIamUser(u));
   const safeUsers = regularUsers.map(({ password, ...u }) => u);
   res.json(safeUsers);
+});
+
+// 2.5. Department Management Endpoints
+app.get('/api/departments', requireAuth, (req, res) => {
+  const db = readDb();
+  res.json(db.departments || []);
+});
+
+app.post('/api/departments', requireAuth, requireAdmin, (req, res) => {
+  const { name, parentId } = req.body;
+
+  if (!name || name.trim() === '') {
+    return res.status(400).json({ message: 'Názov oddelenia je povinný.' });
+  }
+
+  const db = readDb();
+  if (!db.departments) db.departments = [];
+
+  // Check if department with same name already exists under the same parent
+  const nameExists = db.departments.some(d => d.name.toLowerCase() === name.trim().toLowerCase() && d.parentId === parentId);
+  if (nameExists) {
+    return res.status(400).json({ message: 'Oddelenie s týmto názvom už v danej vetve existuje.' });
+  }
+
+  const newDept = {
+    id: `dept-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    name: name.trim(),
+    parentId: parentId || null
+  };
+
+  db.departments.push(newDept);
+  writeDb(db);
+
+  logAction(
+    req.session.user.username,
+    'Pridanie oddelenia',
+    `Vytvorené oddelenie "${newDept.name}" (ID: ${newDept.id}).`
+  );
+
+  res.status(201).json(db.departments);
+});
+
+app.delete('/api/departments/:id', requireAuth, requireAdmin, (req, res) => {
+  const { id } = req.params;
+  const db = readDb();
+  if (!db.departments) db.departments = [];
+
+  const deptToDelete = db.departments.find(d => d.id === id);
+  if (!deptToDelete) {
+    return res.status(404).json({ message: 'Oddelenie nebolo nájdené.' });
+  }
+
+  // Find all child departments recursively
+  const getChildrenIds = (parentId) => {
+    let ids = [];
+    const directChildren = db.departments.filter(d => d.parentId === parentId);
+    directChildren.forEach(child => {
+      ids.push(child.id);
+      ids = ids.concat(getChildrenIds(child.id));
+    });
+    return ids;
+  };
+
+  const allDeletedIds = [id, ...getChildrenIds(id)];
+
+  // Delete departments
+  db.departments = db.departments.filter(d => !allDeletedIds.includes(d.id));
+
+  // Reset department property for all users belonging to any of the deleted departments
+  let affectedUsersCount = 0;
+  if (db.users) {
+    db.users.forEach(u => {
+      if (allDeletedIds.includes(u.department)) {
+        u.department = '';
+        affectedUsersCount++;
+      }
+    });
+  }
+
+  writeDb(db);
+
+  logAction(
+    req.session.user.username,
+    'Vymazanie oddelenia',
+    `Vymazané oddelenie "${deptToDelete.name}" a ${allDeletedIds.length - 1} podriadených oddelení. Resetované oddelenie pre ${affectedUsersCount} používateľov.`
+  );
+
+  res.json(db.departments);
 });
 
 // 3. RBAC Permission Groups Endpoints

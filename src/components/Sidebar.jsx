@@ -26,6 +26,13 @@ export default function Sidebar({ activeTab, setActiveTab, user }) {
             <span className="sidebar-icon">🔑</span>
             <span className="sidebar-label">Správa prístupov</span>
           </button>
+          <button
+            className={`sidebar-link ${activeTab === 'departments' ? 'active' : ''}`}
+            onClick={() => setActiveTab('departments')}
+          >
+            <span className="sidebar-icon">🏢</span>
+            <span className="sidebar-label">Správa oddelení</span>
+          </button>
         </div>
 
         <div className="sidebar-menu-bottom">

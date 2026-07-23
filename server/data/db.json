@@ -29,7 +29,7 @@
       "status": "Aktivovaný",
       "created_at": "2026-07-04T12:57:28.301Z",
       "email": "martin.cibulka@petrzalka.sk",
-      "department": "Referát IT",
+      "department": "dept-1784808799048-vubj",
       "entry_date": "2024-07-01"
     },
     {
@@ -41,7 +41,7 @@
       "status": "Aktivovaný",
       "created_at": "2026-07-06T14:34:16.947Z",
       "email": "igor.jedinak@petrzalka.sk",
-      "department": "Referát IT",
+      "department": "dept-1784808799048-vubj",
       "entry_date": "2023-10-01"
     },
     {
@@ -53,7 +53,7 @@
       "status": "Aktivovaný",
       "created_at": "2026-07-06T14:52:21.848Z",
       "email": "richard.makovica@petrzalka.sk",
-      "department": "Referát IT",
+      "department": "dept-1784808799048-vubj",
       "entry_date": "2023-12-01"
     },
     {
@@ -88,7 +88,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "martin.stopka@petrzalka.sk",
-      "department": "Úsek záujmových činností",
+      "department": "dept-1784808799049-s3qu",
       "entry_date": "2026-07-15",
       "exit_date": "",
       "systems": [],
@@ -130,7 +130,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "viktoria.sithova@petrzalka.sk",
-      "department": "Referát sociálnych vecí",
+      "department": "dept-1784808799049-w7i3",
       "entry_date": "2026-07-01",
       "exit_date": "",
       "systems": [],
@@ -144,7 +144,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "martin.dicer@petrzalka.sk",
-      "department": "Referát geodetických meraní",
+      "department": "dept-1784808799049-qg66",
       "entry_date": "2026-06-15",
       "exit_date": "",
       "systems": [],
@@ -158,7 +158,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "zuzana.khan@petrzalka.sk",
-      "department": "Referát životného prostredia",
+      "department": "dept-1784808799049-qwkk",
       "entry_date": "2026-06-15",
       "exit_date": "",
       "systems": [],
@@ -186,7 +186,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "diana.hulejova@petrzalka.sk",
-      "department": "Referát územného rozvoja",
+      "department": "dept-1784808799049-ozaq",
       "entry_date": "2026-06-01",
       "exit_date": "",
       "systems": [],
@@ -242,7 +242,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "michaela.dobakova@petrzalka.sk",
-      "department": "Referát personálnych činností a miezd",
+      "department": "dept-1784808799049-poln",
       "entry_date": "2026-05-01",
       "exit_date": "",
       "systems": [],
@@ -284,7 +284,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "rudolf.slotik@petrzalka.sk",
-      "department": "Referát správy škôl a školských zariadení",
+      "department": "dept-1784808799049-u4pn",
       "entry_date": "2025-08-01",
       "exit_date": "",
       "systems": [],
@@ -306,6 +306,13 @@
     }
   ],
   "logs": [
+    {
+      "id": "log-1784808398878-rrbndtzgd",
+      "timestamp": "2026-07-23T12:06:38.878Z",
+      "username": "admin",
+      "action": "Prihlásenie (Úspešné)",
+      "details": "Užívateľ Administrátor sa prihlásil do systému."
+    },
     {
       "id": "log-1784802987574-oz3cmcuxq",
       "timestamp": "2026-07-23T10:36:27.574Z",
@@ -1966,6 +1973,30 @@
           "global_settings": "Zápis"
         }
       }
+    },
+    "awIoKwyywI2a1Sy4f05lTkgdSeu-Dj0k": {
+      "cookie": {
+        "originalMaxAge": 86400000,
+        "expires": "2026-07-24T12:06:38.881Z",
+        "secure": false,
+        "httpOnly": true,
+        "path": "/"
+      },
+      "user": {
+        "id": "admin-id",
+        "username": "admin",
+        "name": "Administrátor",
+        "role": "admin",
+        "permissions": {
+          "user_management": "Zápis",
+          "auth_user_management": "Zápis",
+          "group_management": "Zápis",
+          "access_config": "Zápis",
+          "role_management": "Zápis",
+          "audit_log": "Čítanie",
+          "global_settings": "Zápis"
+        }
+      }
     }
   },
   "groups": [
@@ -2171,6 +2202,48 @@
         "audit_log": "Žiadne",
         "global_settings": "Žiadne"
       }
+    }
+  ],
+  "departments": [
+    {
+      "id": "dept-1784808799048-vubj",
+      "name": "Referát IT",
+      "parentId": null
+    },
+    {
+      "id": "dept-1784808799049-s3qu",
+      "name": "Úsek záujmových činností",
+      "parentId": null
+    },
+    {
+      "id": "dept-1784808799049-w7i3",
+      "name": "Referát sociálnych vecí",
+      "parentId": null
+    },
+    {
+      "id": "dept-1784808799049-qg66",
+      "name": "Referát geodetických meraní",
+      "parentId": null
+    },
+    {
+      "id": "dept-1784808799049-qwkk",
+      "name": "Referát životného prostredia",
+      "parentId": null
+    },
+    {
+      "id": "dept-1784808799049-ozaq",
+      "name": "Referát územného rozvoja",
+      "parentId": null
+    },
+    {
+      "id": "dept-1784808799049-poln",
+      "name": "Referát personálnych činností a miezd",
+      "parentId": null
+    },
+    {
+      "id": "dept-1784808799049-u4pn",
+      "name": "Referát správy škôl a školských zariadení",
+      "parentId": null
     }
   ]
 }

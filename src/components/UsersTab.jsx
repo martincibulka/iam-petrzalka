@@ -42,6 +42,7 @@ export default function UsersTab({ currentUser }) {
   const [tempUserGroupIds, setTempUserGroupIds] = useState([]);
   const [tempUserSystems, setTempUserSystems] = useState([]);
   const [accessItems, setAccessItems] = useState([]);
+  const [departments, setDepartments] = useState([]);
 
   // Import State
   const [importMode, setImportMode] = useState(false);
@@ -313,8 +314,9 @@ export default function UsersTab({ currentUser }) {
       const groupsRes = await fetch('/api/groups');
       const userGroupsRes = await fetch('/api/user-groups');
       const accessItemsRes = await fetch('/api/access-items');
+      const deptsRes = await fetch('/api/departments');
 
-      if (!usersRes.ok || !groupsRes.ok || !userGroupsRes.ok || !accessItemsRes.ok) {
+      if (!usersRes.ok || !groupsRes.ok || !userGroupsRes.ok || !accessItemsRes.ok || !deptsRes.ok) {
         throw new Error('Nepodarilo sa načítať všetky potrebné dáta.');
       }
 
@@ -322,11 +324,13 @@ export default function UsersTab({ currentUser }) {
       const groupsData = await groupsRes.json();
       const userGroupsData = await userGroupsRes.json();
       const accessItemsData = await accessItemsRes.json();
+      const deptsData = await deptsRes.json();
 
       setUsers(usersData);
       setGroups(groupsData);
       setUserGroups(userGroupsData);
       setAccessItems(accessItemsData);
+      setDepartments(deptsData);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -337,6 +341,37 @@ export default function UsersTab({ currentUser }) {
   useEffect(() => {
     fetchData();
   }, [currentUser]);
+
+  const getDeptName = (deptIdOrName) => {
+    if (!deptIdOrName) return '—';
+    const dept = departments.find(d => d.id === deptIdOrName);
+    return dept ? dept.name : deptIdOrName;
+  };
+
+  const getImportDeptDisplay = (deptName) => {
+    if (!deptName) return <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>;
+    const exists = departments.some(d => d.name.toLowerCase() === deptName.toLowerCase());
+    if (exists) {
+      return deptName;
+    }
+    return <span style={{ color: 'var(--accent-secondary)' }} title="Toto oddelenie bude automaticky vytvorené v číselníku.">🏢 {deptName} <small style={{ fontSize: '0.75rem', opacity: 0.8 }}>(nové)</small></span>;
+  };
+
+  const renderDeptOptions = (nodes, parentId = null, depth = 0) => {
+    let options = [];
+    const levelNodes = nodes.filter(n => n.parentId === parentId);
+    levelNodes.sort((a, b) => a.name.localeCompare(b.name, 'sk'));
+    levelNodes.forEach(node => {
+      const indent = '\u00A0\u00A0\u00A0\u00A0'.repeat(depth);
+      options.push(
+        <option key={node.id} value={node.id}>
+          {indent}{depth > 0 ? '└ ' : ''}{node.name}
+        </option>
+      );
+      options = options.concat(renderDeptOptions(nodes, node.id, depth + 1));
+    });
+    return options;
+  };
 
   const getUserEffectiveAccesses = (userId) => {
     const user = users.find(u => u.id === userId);
@@ -672,7 +707,10 @@ export default function UsersTab({ currentUser }) {
                   </div>
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Oddelenie</label>
-                    <input type="text" className="form-input" placeholder="napr. IT" value={department} onChange={e => setDepartment(e.target.value)} />
+                    <select className="form-select" value={department} onChange={e => setDepartment(e.target.value)}>
+                      <option value="">-- Bez oddelenia --</option>
+                      {renderDeptOptions(departments)}
+                    </select>
                   </div>
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Dátum nástupu</label>
@@ -768,7 +806,7 @@ export default function UsersTab({ currentUser }) {
                             <tr key={idx}>
                               <td><strong>{u.name}</strong></td>
                               <td>{u.email || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
-                              <td>{u.department || <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>—</span>}</td>
+                              <td>{getImportDeptDisplay(u.department)}</td>
                               <td>{formatDate(u.entry_date)}</td>
                               <td>{formatDate(u.exit_date)}</td>
                             </tr>
@@ -885,7 +923,10 @@ export default function UsersTab({ currentUser }) {
                 </div>
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label className="form-label">Oddelenie</label>
-                  <input type="text" className="form-input" value={department} onChange={e => setDepartment(e.target.value)} />
+                  <select className="form-select" value={department} onChange={e => setDepartment(e.target.value)}>
+                    <option value="">-- Bez oddelenia --</option>
+                    {renderDeptOptions(departments)}
+                  </select>
                 </div>
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label className="form-label">Dátum nástupu</label>
@@ -999,7 +1040,7 @@ export default function UsersTab({ currentUser }) {
                           })()}
                         </td>
                         <td>{user.email || '—'}</td>
-                        <td>{user.department || '—'}</td>
+                        <td>{getDeptName(user.department)}</td>
                         <td>{formatDate(user.entry_date)}</td>
                         <td>{formatDate(user.exit_date)}</td>
                         <td>
