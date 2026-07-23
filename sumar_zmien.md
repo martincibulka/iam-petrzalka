@@ -69,4 +69,4 @@
 - **Excel auto-create oddelení:** Pri nahrávaní súboru náhľad zvýrazní nové oddelenia a po schválení importu ich server automaticky zapíše do číselníka, čím sa zabezpečuje konzistencia dát.
 
 ---
-**Aktuálna verzia projektu:** `23.07.2026.14.15`
+**Aktuálna verzia projektu:** `23.07.2026.14.24`
