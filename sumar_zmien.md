@@ -33,5 +33,14 @@
 - **Znova povolená interakcia:** V modálnom okne správy prístupov boli statické štítky nahradené interaktívnymi klikateľnými `<select>` štítkami na zmenu úrovní. Možnosti v dropdownoch sú vymedzené podľa povolených úrovní pre každý prístup.
 - **Vyčistenie DB:** Z databázy `db.json` boli zmazané staré nepoužívané dáta o priamych prístupoch.
 
+# Súhrn zmien zo dňa 23. 07. 2026
+
+## 1. Zjednotenie statusov v Prehľade oprávnení
+- Zmenili sme priame zobrazovanie surového stavu z databázy (*Aktivovaný* / *Zablokovaný*) v sekcii **Prehľad oprávnení**. Užívatelia majú teraz zobrazený korektný slovenský status **Aktívny** a **Neaktívny** rovnako ako v tabuľke užívateľov.
+
+## 2. Inline editácia prístupových skupín (Správa prístupových skupín)
+- **Rozšírenie karty na editáciu:** Odstránili sme statický formulár z vrchu stránky. Po kliknutí na skupinu (alebo na tlačidlo *Upraviť*) sa vybratá karta priamo v zozname (grid) zväčší a premení na detailný formulár s editovateľnými poliami a dropdownom pre priradenie systémov.
+- **Lepšia plynulosť:** Kliknutím na *Uložiť* alebo *Zrušiť* sa karta bez potreby skrolovania vráti do pôvodného stavu.
+
 ---
-**Aktuálna verzia projektu:** `22.07.2026.16.32`
+**Aktuálna verzia projektu:** `23.07.2026.12.04`
