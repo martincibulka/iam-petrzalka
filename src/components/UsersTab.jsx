@@ -633,7 +633,11 @@ export default function UsersTab({ currentUser }) {
                     transition: 'all 0.2s'
                   }}
                 >
-                  <span style={{ color: importMode ? 'var(--accent-primary)' : 'rgba(139, 92, 246, 0.4)', marginRight: '0.1rem' }}>📥</span> Import z Excelu/CSV
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '0.3rem', display: 'inline-block', verticalAlign: '-3px' }}>
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                  </svg>
+                  Import z Excelu/CSV
                 </span>
               </div>
               <button 
@@ -719,7 +723,10 @@ export default function UsersTab({ currentUser }) {
                           opacity: 0, cursor: 'pointer'
                         }}
                       />
-                      <div style={{ fontSize: '2.2rem', marginBottom: '0.4rem' }}>📥</div>
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '0.4rem', opacity: 0.85 }}>
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                      </svg>
                       <div style={{ fontWeight: '600', color: 'white', fontSize: '1rem' }}>Pretiahnite Excel (.xlsx, .xls) alebo CSV súbor</div>
                       <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.2rem', marginBottom: 0 }}>
                         alebo kliknite pre prehliadanie súborov z vášho počítača
