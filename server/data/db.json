@@ -74,7 +74,7 @@
       "role": "user",
       "status": "Aktivovaný",
       "email": "",
-      "department": "",
+      "department": "dept-1784808799049-qg66",
       "entry_date": "",
       "exit_date": "",
       "systems": [],
@@ -306,6 +306,13 @@
     }
   ],
   "logs": [
+    {
+      "id": "log-1784809382041-yaqt0mj0a",
+      "timestamp": "2026-07-23T12:23:02.041Z",
+      "username": "admin",
+      "action": "Úprava užívateľa",
+      "details": "Upravený užívateľ Kamil Petrakovič (kamil.petrakovic). Detaily: Zmena oddelenia: \"\" -> \"dept-1784808799049-qg66\""
+    },
     {
       "id": "log-1784808398878-rrbndtzgd",
       "timestamp": "2026-07-23T12:06:38.878Z",
