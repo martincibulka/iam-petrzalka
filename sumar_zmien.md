@@ -43,5 +43,10 @@
 - **Lepšia plynulosť:** Kliknutím na *Uložiť* alebo *Zrušiť* sa karta bez potreby skrolovania vráti do pôvodného stavu.
 - **Zatvorenie kliknutím na pozadie:** Kliknutím na prázdne miesto/pozadie otvorenej editovacej karty sa úprava zruší a karta sa zbalí. Kliknutia na aktívne prvky (tlačidlá, vstupné polia, badges) sú chránené.
 
+## 3. Zjednotenie a fixná výška kariet prístupových skupín
+- **Úprava šírok:** Zúžili sme stĺpec s názvom skupiny na **20 %** a zväčšili stredovú časť priradených prístupov na **65 % šírky** karty.
+- **Unifikovaná výška:** V stave náhľadu majú teraz všetky karty rovnakú výšku **96px**.
+- **Vertikálny posuvník:** Priradené prístupy sú obmedzené na maximálne 2 riadky (52px). Pri väčšom počte sa zobrazí vertikálny posuvník, čo zabraňuje skákaniu a zmene výšok kariet v zozname.
+
 ---
-**Aktuálna verzia projektu:** `23.07.2026.12.11`
+**Aktuálna verzia projektu:** `23.07.2026.12.18`
