@@ -265,11 +265,6 @@ export default function PermissionsTab({ currentUser }) {
     setGroupDesc(group.description);
     setGroupSystems(group.systems || []);
     setShowAddGroup(false);
-    
-    // Smoothly scroll up to make sure the edit form is visible
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 50);
   };
 
   const handleEditGroupSubmit = async (e) => {
@@ -550,89 +545,6 @@ export default function PermissionsTab({ currentUser }) {
           </form>
         </div>
       )}
-
-      {/* 2. Edit Group Form */}
-      {editGroupId && (
-        <div className="card" style={{ marginBottom: '2rem', animation: 'fadeIn 0.3s ease-out' }}>
-          <h3 style={{ marginBottom: '1.25rem' }}>Upraviť skupinu: {groups.find(g => g.id === editGroupId)?.name}</h3>
-          <form onSubmit={handleEditGroupSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Názov skupiny</label>
-                <input type="text" className="form-input" value={groupName} onChange={e => setGroupName(e.target.value)} required />
-              </div>
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Popis skupiny</label>
-                <input type="text" className="form-input" value={groupDesc} onChange={e => setGroupDesc(e.target.value)} required />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Priradené prístupy</label>
-              
-              {/* Active tag list */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
-                {groupSystems.length === 0 ? (
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Žiadne priradené prístupy</span>
-                ) : (
-                  [...groupSystems].sort((a, b) => {
-                    const nameA = typeof a === 'object' ? a.name : a;
-                    const nameB = typeof b === 'object' ? b.name : b;
-                    return nameA.localeCompare(nameB, 'sk');
-                  }).map(sys => {
-                    const sysName = typeof sys === 'object' ? sys.name : sys;
-                    return (
-                      <span key={sysName} className="badge badge-user" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0.75rem', fontSize: '0.85rem' }}>
-                        <strong>{sysName}</strong>
-
-                        <button 
-                          type="button" 
-                          onClick={() => handleFormToggleSystem(sysName)}
-                          style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 0, fontWeight: 'bold', fontSize: '0.8rem', marginLeft: '0.25rem' }}
-                          title="Odobrať"
-                        >
-                          ✕
-                        </button>
-                      </span>
-                    );
-                  })
-                )}
-              </div>
-
-              {/* Add dropdown */}
-              {(() => {
-                const currentFormSystems = groupSystems.map(sys => typeof sys === 'object' ? sys.name : sys);
-                const availableItems = accessItems.filter(item => !currentFormSystems.includes(item.name));
-                const sortedAvailableItems = [...availableItems].sort((a, b) => a.name.localeCompare(b.name, 'sk'));
-                return sortedAvailableItems.length > 0 && (
-                  <div style={{ maxWidth: '300px' }}>
-                    <select 
-                      className="form-select" 
-                      value=""
-                      onChange={e => {
-                        if (e.target.value) {
-                          handleFormToggleSystem(e.target.value);
-                        }
-                      }}
-                    >
-                      <option value="">➕ Pridať prístup do skupiny...</option>
-                      {sortedAvailableItems.map(item => (
-                        <option key={item.id} value={item.name}>{item.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                );
-              })()}
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-              <button type="submit" className="btn btn-primary">Uložiť zmeny</button>
-              <button type="button" className="btn btn-secondary" onClick={() => setEditGroupId(null)}>Zrušiť</button>
-            </div>
-          </form>
-        </div>
-      )}
-
       {/* 3. Manage Groups (Grid) */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
         <h3 style={{ marginBottom: 0 }}>Skupiny prístupov</h3>
@@ -641,57 +553,155 @@ export default function PermissionsTab({ currentUser }) {
         </button>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '3rem' }}>
-        {groups.map(g => (
-          <div key={g.id} className="card" style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            borderColor: 'rgba(255,255,255,0.05)',
-            padding: '1.25rem 1.5rem',
-            marginBottom: '0.25rem'
-          }}>
-            {/* Main Row */}
-            <div 
-              onClick={() => handleEditGroupClick(g)}
-              style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '2rem', width: '100%', cursor: 'pointer', userSelect: 'none' }}
-            >
-              {/* Left: Info */}
-              <div style={{ flex: '1 1 35%', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <h4 style={{ fontSize: '1.25rem', color: 'white', margin: 0 }}>
-                  👥 {g.name}
+        {groups.map(g => {
+          const isEditing = editGroupId === g.id;
+
+          if (isEditing) {
+            return (
+              <div key={g.id} className="card" style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                borderColor: 'var(--accent-primary)',
+                background: 'rgba(6, 182, 212, 0.03)',
+                padding: '1.5rem',
+                marginBottom: '0.25rem',
+                animation: 'fadeIn 0.3s ease-out'
+              }}>
+                <h4 style={{ fontSize: '1.1rem', color: 'white', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  ⚙️ Upraviť skupinu: {g.name}
                 </h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: '1.4', margin: 0 }}>{g.description}</p>
+                <form onSubmit={handleEditGroupSubmit}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Názov skupiny</label>
+                      <input type="text" className="form-input" value={groupName} onChange={e => setGroupName(e.target.value)} required />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Popis skupiny</label>
+                      <input type="text" className="form-input" value={groupDesc} onChange={e => setGroupDesc(e.target.value)} required />
+                    </div>
+                  </div>
+
+                  <div className="form-group" style={{ marginBottom: '1.25rem' }}>
+                    <label className="form-label">Priradené prístupy</label>
+                    
+                    {/* Active tag list */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.75rem' }}>
+                      {groupSystems.length === 0 ? (
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>Žiadne priradené prístupy</span>
+                      ) : (
+                        [...groupSystems].sort((a, b) => {
+                          const nameA = typeof a === 'object' ? a.name : a;
+                          const nameB = typeof b === 'object' ? b.name : b;
+                          return nameA.localeCompare(nameB, 'sk');
+                        }).map(sys => {
+                          const sysName = typeof sys === 'object' ? sys.name : sys;
+                          return (
+                            <span key={sysName} className="badge badge-user" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.3rem 0.6rem', fontSize: '0.8rem' }}>
+                              <strong>{sysName}</strong>
+
+                              <button 
+                                type="button" 
+                                onClick={() => handleFormToggleSystem(sysName)}
+                                style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 0, fontWeight: 'bold', fontSize: '0.8rem', marginLeft: '0.2rem' }}
+                                title="Odobrať"
+                              >
+                                ✕
+                              </button>
+                            </span>
+                          );
+                        })
+                      )}
+                    </div>
+
+                    {/* Add dropdown */}
+                    {(() => {
+                      const currentFormSystems = groupSystems.map(sys => typeof sys === 'object' ? sys.name : sys);
+                      const availableItems = accessItems.filter(item => !currentFormSystems.includes(item.name));
+                      const sortedAvailableItems = [...availableItems].sort((a, b) => a.name.localeCompare(b.name, 'sk'));
+                      return sortedAvailableItems.length > 0 && (
+                        <div style={{ maxWidth: '280px' }}>
+                          <select 
+                            className="form-select" 
+                            value=""
+                            style={{ fontSize: '0.85rem', padding: '0.4rem 0.6rem' }}
+                            onChange={e => {
+                              if (e.target.value) {
+                                handleFormToggleSystem(e.target.value);
+                              }
+                            }}
+                          >
+                            <option value="">➕ Pridať prístup do skupiny...</option>
+                            {sortedAvailableItems.map(item => (
+                              <option key={item.id} value={item.name}>{item.name}</option>
+                            ))}
+                          </select>
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
+                    <button type="submit" className="btn btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}>Uložiť zmeny</button>
+                    <button type="button" className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }} onClick={() => setEditGroupId(null)}>Zrušiť</button>
+                  </div>
+                </form>
               </div>
-              
-              {/* Middle: Badges */}
-              <div style={{ flex: '1 1 35%', borderLeft: '1px solid var(--border-color)', paddingLeft: '1.5rem' }}>
-                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', marginBottom: '0.4rem' }}>Priradené prístupy:</span>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                  {g.systems.length === 0 ? (
-                    <span style={{ fontSize: '0.8rem', color: 'var(--color-danger)', fontStyle: 'italic' }}>Bez priradených prístupov</span>
-                  ) : (
-                    [...g.systems].sort((a, b) => {
-                      const nameA = typeof a === 'object' ? a.name : a;
-                      const nameB = typeof b === 'object' ? b.name : b;
-                      return nameA.localeCompare(nameB, 'sk');
-                    }).map(s => {
-                      const name = typeof s === 'object' ? s.name : s;
-                      return <span key={name} className="badge badge-user" style={{ fontSize: '0.75rem' }}>{name}</span>;
-                    })
-                  )}
+            );
+          }
+
+          return (
+            <div key={g.id} className="card" style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              borderColor: 'rgba(255,255,255,0.05)',
+              padding: '1.25rem 1.5rem',
+              marginBottom: '0.25rem'
+            }}>
+              {/* Main Row */}
+              <div 
+                onClick={() => handleEditGroupClick(g)}
+                style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '2rem', width: '100%', cursor: 'pointer', userSelect: 'none' }}
+              >
+                {/* Left: Info */}
+                <div style={{ flex: '1 1 35%', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  <h4 style={{ fontSize: '1.25rem', color: 'white', margin: 0 }}>
+                    👥 {g.name}
+                  </h4>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: '1.4', margin: 0 }}>{g.description}</p>
+                </div>
+                
+                {/* Middle: Badges */}
+                <div style={{ flex: '1 1 35%', borderLeft: '1px solid var(--border-color)', paddingLeft: '1.5rem' }}>
+                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', marginBottom: '0.4rem' }}>Priradené prístupy:</span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                    {g.systems.length === 0 ? (
+                      <span style={{ fontSize: '0.8rem', color: 'var(--color-danger)', fontStyle: 'italic' }}>Bez priradených prístupov</span>
+                    ) : (
+                      [...g.systems].sort((a, b) => {
+                        const nameA = typeof a === 'object' ? a.name : a;
+                        const nameB = typeof b === 'object' ? b.name : b;
+                        return nameA.localeCompare(nameB, 'sk');
+                      }).map(s => {
+                        const name = typeof s === 'object' ? s.name : s;
+                        return <span key={name} className="badge badge-user" style={{ fontSize: '0.75rem' }}>{name}</span>;
+                      })
+                    )}
+                  </div>
+                </div>
+                
+                {/* Right: Actions */}
+                <div 
+                  style={{ display: 'flex', gap: '0.5rem', flex: '0 0 auto', alignItems: 'center' }}
+                  onClick={e => e.stopPropagation()}
+                >
+                  <button className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }} onClick={() => handleEditGroupClick(g)}>✏️ Upraviť</button>
+                  <button className="btn btn-danger" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#fca5a5', border: '1px solid rgba(239, 68, 68, 0.2)' }} onClick={() => handleDeleteGroup(g.id)}>🗑️ Zmazať</button>
                 </div>
               </div>
-              
-              {/* Right: Actions */}
-              <div 
-                style={{ display: 'flex', gap: '0.5rem', flex: '0 0 auto', alignItems: 'center' }}
-                onClick={e => e.stopPropagation()}
-              >
-                <button className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }} onClick={() => handleEditGroupClick(g)}>✏️ Upraviť</button>
-                <button className="btn btn-danger" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#fca5a5', border: '1px solid rgba(239, 68, 68, 0.2)' }} onClick={() => handleDeleteGroup(g.id)}>🗑️ Zmazať</button>
-              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* 4. Access Levels Table */}
