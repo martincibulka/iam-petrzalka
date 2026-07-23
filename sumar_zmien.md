@@ -60,6 +60,7 @@
 - **Zarovnanie záložiek:** Nastavili sme šírku prvej záložky na **236px** a odstránili medzeru kontajnera, vďaka čomu druhá záložka (*Import z Excelu/CSV*) začína presne nad stĺpcom **Emailová adresa** pre perfektné dizajnové zarovnanie.
 - **Obmedzenie dĺžky podčiarknutia:** Presunuli sme pevnú šírku 236px na obalový `div` a samotnému nápisu (*Nový užívateľ*) sme ponechali auto-width, aby fialové podčiarknutie kopírovalo len samotnú dĺžku textu.
 - **Konštantná veľkosť okna:** Zjednotili sme šírku modálneho okna na fixných **750px** (nahradením `maxWidth` priamo za `width: '750px'`), čím sme zamedzili skákaniu a zmene veľkosti okna pri prepínaní medzi manuálnym pridaním a importom z Excelu, pretože predtým prehliadač zmenšoval okno importu kvôli menšiemu prirodzenému obsahu.
+- **Zjednotenie výšky okna:** Nastavili sme minimálnu výšku okna `minHeight: '390px'` a prerobili oba formuláre na flexboxy s ukotveným spodným panelom (`marginTop: 'auto'`). Okno importu má teraz pred nahratím súboru identickú výšku ako ručný formulár a prepínanie je vizuálne dokonale stabilné.
 
 ---
-**Aktuálna verzia projektu:** `23.07.2026.13.20`
+**Aktuálna verzia projektu:** `23.07.2026.13.32`
