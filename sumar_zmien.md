@@ -59,6 +59,7 @@
 - **Fialový dizajn záložiek:** Obe záložky v hlavičke okna sme zafarbili na fialovú farbu brandu (`var(--accent-primary)`). Aktívny stav má plnú fialovú a neaktívny 40% priehľadnú fialovú. Plus symbol sme premenili na textový symbol `+` vo fialovej farbe.
 - **Zarovnanie záložiek:** Nastavili sme šírku prvej záložky na **236px** a odstránili medzeru kontajnera, vďaka čomu druhá záložka (*Import z Excelu/CSV*) začína presne nad stĺpcom **Emailová adresa** pre perfektné dizajnové zarovnanie.
 - **Obmedzenie dĺžky podčiarknutia:** Presunuli sme pevnú šírku 236px na obalový `div` a samotnému nápisu (*Nový užívateľ*) sme ponechali auto-width, aby fialové podčiarknutie kopírovalo len samotnú dĺžku textu.
+- **Konštantná veľkosť okna:** Zjednotili sme šírku modálneho okna na fixných **750px** pre oba režimy, čím sme zamedzili skákaniu a zmene veľkosti okna pri prepínaní medzi manuálnym pridaním a importom z Excelu.
 
 ---
-**Aktuálna verzia projektu:** `23.07.2026.12.50`
+**Aktuálna verzia projektu:** `23.07.2026.12.54`
