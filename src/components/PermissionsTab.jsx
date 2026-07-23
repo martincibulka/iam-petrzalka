@@ -664,28 +664,39 @@ export default function PermissionsTab({ currentUser }) {
               display: 'flex', 
               flexDirection: 'column', 
               borderColor: 'rgba(255,255,255,0.05)',
-              padding: '1.25rem 1.5rem',
-              marginBottom: '0.25rem'
+              padding: '1rem 1.5rem',
+              marginBottom: '0.25rem',
+              height: '96px',
+              justifyContent: 'center'
             }}>
               {/* Main Row */}
               <div 
                 onClick={() => handleEditGroupClick(g)}
-                style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '2rem', width: '100%', cursor: 'pointer', userSelect: 'none' }}
+                style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '1.5rem', width: '100%', cursor: 'pointer', userSelect: 'none' }}
               >
-                {/* Left: Info */}
-                <div style={{ flex: '1 1 35%', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <h4 style={{ fontSize: '1.25rem', color: 'white', margin: 0 }}>
+                {/* Left: Info (narrowed) */}
+                <div style={{ flex: '0 0 20%', display: 'flex', flexDirection: 'column', gap: '0.2rem', overflow: 'hidden' }}>
+                  <h4 style={{ fontSize: '1.1rem', color: 'white', margin: 0, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }} title={g.name}>
                     👥 {g.name}
                   </h4>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: '1.4', margin: 0 }}>{g.description}</p>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', lineHeight: '1.3', margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }} title={g.description}>
+                    {g.description}
+                  </p>
                 </div>
                 
-                {/* Middle: Badges */}
-                <div style={{ flex: '1 1 35%', borderLeft: '1px solid var(--border-color)', paddingLeft: '1.5rem' }}>
-                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', marginBottom: '0.4rem' }}>Priradené prístupy:</span>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                {/* Middle: Badges (expanded) */}
+                <div style={{ flex: '1 1 65%', borderLeft: '1px solid var(--border-color)', paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.25rem', overflow: 'hidden' }}>
+                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', fontWeight: '600' }}>Priradené prístupy:</span>
+                  <div style={{ 
+                    display: 'flex', 
+                    flexWrap: 'wrap', 
+                    gap: '0.35rem', 
+                    height: '52px',
+                    overflowY: 'auto',
+                    paddingRight: '0.25rem'
+                  }}>
                     {g.systems.length === 0 ? (
-                      <span style={{ fontSize: '0.8rem', color: 'var(--color-danger)', fontStyle: 'italic' }}>Bez priradených prístupov</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--color-danger)', fontStyle: 'italic', alignSelf: 'center' }}>Bez priradených prístupov</span>
                     ) : (
                       [...g.systems].sort((a, b) => {
                         const nameA = typeof a === 'object' ? a.name : a;
@@ -693,7 +704,7 @@ export default function PermissionsTab({ currentUser }) {
                         return nameA.localeCompare(nameB, 'sk');
                       }).map(s => {
                         const name = typeof s === 'object' ? s.name : s;
-                        return <span key={name} className="badge badge-user" style={{ fontSize: '0.75rem' }}>{name}</span>;
+                        return <span key={name} className="badge badge-user" style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem' }}>{name}</span>;
                       })
                     )}
                   </div>
@@ -701,11 +712,11 @@ export default function PermissionsTab({ currentUser }) {
                 
                 {/* Right: Actions */}
                 <div 
-                  style={{ display: 'flex', gap: '0.5rem', flex: '0 0 auto', alignItems: 'center' }}
+                  style={{ display: 'flex', gap: '0.4rem', flex: '0 0 auto', alignItems: 'center' }}
                   onClick={e => e.stopPropagation()}
                 >
-                  <button className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }} onClick={() => handleEditGroupClick(g)}>✏️ Upraviť</button>
-                  <button className="btn btn-danger" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#fca5a5', border: '1px solid rgba(239, 68, 68, 0.2)' }} onClick={() => handleDeleteGroup(g.id)}>🗑️ Zmazať</button>
+                  <button className="btn btn-secondary" style={{ padding: '0.35rem 0.7rem', fontSize: '0.75rem' }} onClick={() => handleEditGroupClick(g)}>✏️ Upraviť</button>
+                  <button className="btn btn-danger" style={{ padding: '0.35rem 0.7rem', fontSize: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#fca5a5', border: '1px solid rgba(239, 68, 68, 0.2)' }} onClick={() => handleDeleteGroup(g.id)}>🗑️ Zmazať</button>
                 </div>
               </div>
             </div>
