@@ -10,6 +10,19 @@ const formatDate = (dateStr) => {
   return dateStr;
 };
 
+const convertExcelDate = (excelDate) => {
+  if (!excelDate) return '';
+  if (!isNaN(excelDate) && String(excelDate).trim() !== '') {
+    const num = Number(excelDate);
+    const date = new Date((num - 25569) * 86400 * 1000);
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+  return String(excelDate).trim();
+};
+
 export default function UsersTab({ currentUser }) {
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
@@ -127,9 +140,21 @@ export default function UsersTab({ currentUser }) {
         // Flexible header mapping
         const mappedUsers = parsedRows.map(row => {
           const mapped = {};
+          let firstName = '';
+          let lastName = '';
+
           Object.entries(row).forEach(([key, val]) => {
             const k = key.toLowerCase().trim();
-            if (
+            // First Name
+            if (k === '*givenname (meno)' || k === 'givenname' || k === 'krstné meno' || k === 'krstne meno') {
+              firstName = String(val).trim();
+            } 
+            // Last Name
+            else if (k === '*sn (priezvisko)' || k === 'sn' || k === 'priezvisko') {
+              lastName = String(val).trim();
+            } 
+            // Full name fallback
+            else if (
               k === 'meno' || 
               k === 'name' || 
               k === 'full name' || 
@@ -140,16 +165,30 @@ export default function UsersTab({ currentUser }) {
               k === 'zamestnanec'
             ) {
               mapped.name = String(val).trim();
-            } else if (k === 'email' || k === 'e-mail' || k === 'mail' || k === 'adresa') {
+            } 
+            // Email
+            else if (k === '*mail' || k === 'email' || k === 'e-mail' || k === 'mail' || k === 'adresa') {
               mapped.email = String(val).trim();
-            } else if (k === 'oddelenie' || k === 'department' || k === 'sekcia' || k === 'odbor') {
+            } 
+            // Department
+            else if (k === '*department (oddelenie)' || k === 'department' || k === 'oddelenie' || k === 'sekcia' || k === 'odbor') {
               mapped.department = String(val).trim();
-            } else if (k === 'dátum nástupu' || k === 'nástup' || k === 'entry date' || k === 'datum nastupu' || k === 'entry_date') {
-              mapped.entry_date = String(val).trim();
-            } else if (k === 'dátum výstupu' || k === 'výstup' || k === 'exit date' || k === 'datum vystupu' || k === 'exit_date') {
-              mapped.exit_date = String(val).trim();
+            } 
+            // Entry date
+            else if (k === 'dátum nástupu' || k === 'nástup' || k === 'entry date' || k === 'datum nastupu' || k === 'entry_date') {
+              mapped.entry_date = convertExcelDate(val);
+            } 
+            // Exit date
+            else if (k === 'dátum výstupu' || k === 'výstup' || k === 'exit date' || k === 'datum vystupu' || k === 'exit_date') {
+              mapped.exit_date = convertExcelDate(val);
             }
           });
+
+          // Combine firstName and lastName if present
+          if (firstName || lastName) {
+            mapped.name = `${firstName} ${lastName}`.trim();
+          }
+
           return mapped;
         }).filter(u => u.name && u.name.trim() !== "");
 
