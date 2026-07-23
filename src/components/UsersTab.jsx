@@ -657,7 +657,7 @@ export default function UsersTab({ currentUser }) {
 
             {!importMode ? (
               <form onSubmit={handleAddSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem', marginTop: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem', marginTop: '1rem', height: '168px' }}>
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Meno užívateľa</label>
                     <input type="text" className="form-input" placeholder="napr. Ján Mrkvička" value={name} onChange={e => setName(e.target.value)} required />
@@ -700,7 +700,7 @@ export default function UsersTab({ currentUser }) {
                     <div style={{
                       border: '2px dashed rgba(255,255,255,0.15)',
                       borderRadius: 'var(--border-radius-sm)',
-                      height: '152px',
+                      height: '168px',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'center',
